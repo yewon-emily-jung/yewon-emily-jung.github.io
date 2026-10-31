@@ -1,0 +1,336 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Build a Sentence 연습장_@yeactivity13</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: one exam-style card in a centered column; tray below the sentence; tools tucked in a fold at the bottom */
+:root{
+  --bg:#f3f5f4; --surface:#ffffff; --ink:#18201e; --muted:#5b6763; --line:#d5dcd9;
+  --accent:#1f6b66; --accent-ink:#ffffff; --accent-soft:#e3efed;
+  --good:#1d7a45; --good-soft:#e2f3e8; --bad:#b4372b; --bad-soft:#fbe6e3;
+  --chip:#eef2f1; --slot:#fafbfb;
+  --font-ui:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --font-test:"Source Sans 3","Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111615; --surface:#1a201f; --ink:#e7ecea; --muted:#9aa8a4; --line:#2e3836;
+  --accent:#4fb3a9; --accent-ink:#0d1413; --accent-soft:#1f3532;
+  --good:#5fcf8c; --good-soft:#173324; --bad:#f08a7e; --bad-soft:#3a1e1b;
+  --chip:#242c2a; --slot:#151b1a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111615; --surface:#1a201f; --ink:#e7ecea; --muted:#9aa8a4; --line:#2e3836;
+  --accent:#4fb3a9; --accent-ink:#0d1413; --accent-soft:#1f3532;
+  --good:#5fcf8c; --good-soft:#173324; --bad:#f08a7e; --bad-soft:#3a1e1b;
+  --chip:#242c2a; --slot:#151b1a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:20px 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+header.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px}
+h1{font-size:20px;margin:0;font-weight:700;text-wrap:balance}
+.meta{display:flex;gap:8px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.pill{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px;color:var(--muted)}
+.pill b{color:var(--ink);font-weight:600}
+.sets{display:flex;flex-wrap:wrap;gap:8px}
+.set{font:inherit;font-size:14px;font-weight:500;padding:8px 14px;min-height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.set.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.set:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px;display:flex;flex-direction:column;gap:22px}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.qhead .ins{font-family:var(--font-test);font-weight:700;font-size:20px}
+.qhead .num{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.turn{display:flex;gap:14px;align-items:flex-start}
+.av{flex:0 0 40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;background:var(--accent-soft);color:var(--accent);border:2px solid var(--accent)}
+.av.b{background:var(--chip);color:var(--muted);border-color:var(--line)}
+.say{min-width:0;font-family:var(--font-test);font-size:18px;padding-top:7px}
+.say.a{font-weight:600}
+.line{display:flex;flex-wrap:wrap;align-items:center;gap:8px 8px;padding-top:4px}
+.fixed{font-family:var(--font-test);font-size:18px}
+.slot{min-width:92px;min-height:42px;padding:6px 12px;border:0;border-bottom:2px solid var(--muted);background:var(--slot);border-radius:4px 4px 0 0;font:inherit;font-family:var(--font-test);font-size:17px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.slot.empty{color:transparent}
+.slot.over{background:var(--accent-soft);border-bottom-color:var(--accent)}
+.slot.right{border-bottom-color:var(--good);background:var(--good-soft)}
+.slot.wrong{border-bottom-color:var(--bad);background:var(--bad-soft)}
+.tray{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;min-height:56px;padding:14px;border:1px dashed var(--line);border-radius:8px}
+.tray.over{border-color:var(--accent);background:var(--accent-soft)}
+.chip{font-family:var(--font-test);font-size:17px;padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:var(--chip);color:var(--ink);cursor:grab;user-select:none}
+.chip:hover{border-color:var(--accent)}
+.chip.extra{outline:2px solid var(--bad);outline-offset:2px}
+.hint{font-size:13px;color:var(--muted);text-align:center;margin:-10px 0 0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+button.btn{font:inherit;font-size:14px;font-weight:600;padding:10px 18px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;min-height:44px}
+button.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button.btn:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,.slot:focus-visible,.chip:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.fb{border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.fb.good{background:var(--good-soft)} .fb.bad{background:var(--bad-soft)}
+.fb .verdict{font-weight:700}
+.fb.good .verdict{color:var(--good)} .fb.bad .verdict{color:var(--bad)}
+.fb .ans{font-family:var(--font-test);font-size:17px}
+.fb .tip{font-size:14px;color:var(--ink)}
+.summary{display:flex;flex-direction:column;gap:12px}
+.big{font-size:40px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+.missed{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.missed .tag{font-size:12px;color:var(--muted);letter-spacing:.02em}
+details.tools{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+details.tools summary{cursor:pointer;font-weight:600}
+.tools .body{display:flex;flex-direction:column;gap:12px;padding-top:12px}
+.tools p{margin:0;color:var(--muted);font-size:14px}
+pre.prompt{margin:0;white-space:pre-wrap;font-size:12.5px;background:var(--chip);border-radius:6px;padding:12px;max-height:220px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace}
+textarea{width:100%;min-height:140px;font:12.5px ui-monospace,Menlo,Consolas,monospace;padding:10px;border-radius:6px;border:1px solid var(--line);background:var(--slot);color:var(--ink)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.msg{font-size:13px}
+.msg.err{color:var(--bad)} .msg.ok{color:var(--good)}
+@media (max-width:480px){.card{padding:18px}.say,.fixed{font-size:16px}.slot{min-width:72px;font-size:16px}.chip{font-size:16px}}
+@media (prefers-reduced-motion:no-preference){.chip,.slot{transition:background .12s,border-color .12s}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Build a Sentence 연습장</h1>
+    <div class="meta">
+      <span class="pill">점수 <b id="score">0 / 0</b></span>
+      <span class="pill">시간 <b id="clock">00:00</b></span>
+    </div>
+  </header>
+
+  <div class="sets" role="group" aria-label="문제 세트">
+    <button type="button" class="set on" data-set="base">기본 20</button>
+    <button type="button" class="set" data-set="hard">헷갈리는 동사 20</button>
+    <button type="button" class="set" data-set="order">어순 함정 10</button>
+    <button type="button" class="set" data-set="all">전체 섞기 50</button>
+  </div>
+
+  <section class="card" id="card" aria-live="polite"></section>
+
+  <details class="tools">
+    <summary>AI로 새 문제 만들어 불러오기</summary>
+    <div class="body">
+      <p>아래 프롬프트를 ChatGPT, Claude, Gemini 중 하나에 붙여넣고, 나온 결과를 아래 칸에 그대로 붙여넣으면 새 문제로 연습할 수 있어요.</p>
+      <pre class="prompt" id="promptText">Create 10 TOEFL iBT "Build a Sentence" practice items.
+Return ONLY a JSON array, no other text. Each item looks like this:
+{"a":"Speaker A's question or statement","pre":"words already shown before the blanks","answer":["chunk1","chunk2","chunk3","chunk4","chunk5"],"post":"words already shown after the blanks","extra":"one wrong chunk","tip":"one-line explanation in Korean of the grammar point"}
+
+Rules:
+1. Campus or daily-life topics.
+2. "answer" has 4 to 6 chunks. Some chunks are single words and some are short phrases.
+3. pre + answer (in order) + post must form exactly one grammatical sentence.
+4. There must be only ONE correct order. Using "extra" instead of any answer chunk must make the sentence wrong.
+5. "extra" tests a common trap: subject-verb agreement, tense, word form, or an unneeded auxiliary in an indirect question.
+6. "pre" or "post" may be an empty string, but not both.</pre>
+      <div class="row">
+        <button class="btn" id="copyBtn" type="button">프롬프트 복사</button>
+        <span class="msg" id="copyMsg"></span>
+      </div>
+      <label for="jsonIn" class="msg">AI 결과 붙여넣기</label>
+      <textarea id="jsonIn" placeholder='[{"a":"...","pre":"...","answer":["...","..."],"post":"...","extra":"...","tip":"..."}]'></textarea>
+      <div class="row">
+        <button class="btn primary" id="loadBtn" type="button">이 문제로 연습하기</button>
+        <button class="btn" id="resetSet" type="button">기본 문제로 돌아가기</button>
+        <span class="msg" id="loadMsg"></span>
+      </div>
+    </div>
+  </details>
+</div>
+
+<script>
+const BASE = [
+ {a:"Have you finished the reading for Professor Kim's class?",pre:"Not yet. I",answer:["haven't","had","time","to start","it"],post:".",extra:"having",tip:"현재완료는 haven't + 과거분사(had) 형태예요. having은 들어갈 자리가 없어요.",tag:"현재완료"},
+ {a:"Do you need anything from the library?",pre:"Could you",answer:["find out","when","the new books","will","arrive"],post:"?",extra:"does",tip:"간접의문문은 의문사 + 주어 + 동사 어순이에요. does 같은 조동사를 따로 넣지 않아요.",tag:"간접의문문"},
+ {a:"Who should I talk to about my schedule?",pre:"The",answer:["advisor","who","works","in","the student center"],post:"can help you.",extra:"work",tip:"관계사절의 동사는 선행사(advisor, 단수)에 맞춰 works가 돼요.",tag:"관계사절 수일치"},
+ {a:"Is the computer lab open this weekend?",pre:"No, it",answer:["is","being","cleaned","until","Monday"],post:".",extra:"cleaning",tip:"실험실이 청소를 '받는' 것이라 진행형 수동태 is being cleaned가 맞아요.",tag:"수동태"},
+ {a:"How did the group presentation go?",pre:"Not great.",answer:["One of","the slides","was","missing","from our file"],post:".",extra:"were",tip:"주어는 One(하나)이라 단수 동사 was를 써요. slides에 끌려 were를 고르기 쉬워요.",tag:"주어 동사 수일치"},
+ {a:"Did the professor say anything about the exam?",pre:"She",answer:["asked","us","whether","we","wanted"],post:"a review session.",extra:"did",tip:"whether 뒤는 평서문 어순(we wanted)이에요. did를 넣으면 의문문 어순이 돼요.",tag:"간접의문문"},
+ {a:"Which dorm did you choose?",pre:"I picked",answer:["the one","that","is","closer","to campus"],post:".",extra:"more",tip:"close는 비교급이 closer예요. more closer는 이중 비교라 틀려요.",tag:"비교급"},
+ {a:"How do you stay focused while studying?",pre:"I",answer:["avoid","checking","my phone","until","I finish"],post:"each chapter.",extra:"to check",tip:"avoid 뒤에는 동명사(checking)가 와요. to부정사는 쓰지 않아요.",tag:"동명사"},
+ {a:"Is Maria still working at the bookstore?",pre:"Yes, she",answer:["has","worked","there","since","last spring"],post:".",extra:"for",tip:"last spring은 시작 시점이라 since를 써요. for는 기간(two years 등) 앞에 와요.",tag:"현재완료 since/for"},
+ {a:"I'm going to the career fair tomorrow.",pre:"Great!",answer:["Do","you","know","which companies","will be"],post:"there?",extra:"does",tip:"know 뒤 간접의문문은 의문사 + 주어 + 동사 어순이에요. does는 필요 없어요.",tag:"간접의문문"},
+ {a:"Why are you leaving so early?",pre:"I",answer:["need","to pick up","a package","before","the office closes"],post:".",extra:"picking up",tip:"need 뒤에는 to부정사(to pick up)가 와요.",tag:"to부정사"},
+ {a:"Did you understand the assignment?",pre:"Not really. I'm not sure",answer:["what","the professor","expects","us","to include"],post:".",extra:"does",tip:"what 뒤는 평서문 어순(the professor expects)이에요. does를 넣으면 틀려요.",tag:"간접의문문"},
+ {a:"Can you help me move this weekend?",pre:"Sorry, I",answer:["have","to work","an extra shift","on Saturday"],post:".",extra:"working",tip:"have to + 동사원형으로 '해야 한다'를 나타내요. have working은 틀려요.",tag:"have to"},
+ {a:"Why did you switch your major?",pre:"I realized I",answer:["was","more interested","in","marketing","than"],post:"engineering.",extra:"most",tip:"than이 있으니 비교급 more를 써요. 최상급 most는 than과 함께 쓰지 않아요.",tag:"비교급"},
+ {a:"Did you enjoy the guest lecture?",pre:"Yes, it was",answer:["the most","interesting","talk","I've","attended"],post:"this semester.",extra:"more",tip:"the와 '이번 학기 들은 것 중'이라는 범위가 있으니 최상급 the most예요.",tag:"최상급"},
+ {a:"Are you free to meet tomorrow?",pre:"I'm free",answer:["any time","after","my","morning class","ends"],post:".",extra:"will end",tip:"after, when 같은 시간 접속사 뒤에서는 미래 일도 현재시제(ends)로 써요.",tag:"시간 부사절 시제"},
+ {a:"What did your roommate say about the noise?",pre:"She told me",answer:["that","she","couldn't","sleep","last night"],post:".",extra:"can't",tip:"last night은 과거라 couldn't를 써요. 전달하는 동사 told도 과거예요.",tag:"시제 일치"},
+ {a:"How was the campus tour?",pre:"It was",answer:["so","helpful","that","I","signed up"],post:"for another one.",extra:"such",tip:"형용사(helpful) 앞에는 so를 써요. such는 such a helpful tour처럼 명사와 함께 써요.",tag:"so ~ that"},
+ {a:"Do you know where the new cafe is?",pre:"Yes, it's",answer:["right","next to","the building","where","we have chemistry"],post:".",extra:"which",tip:"뒤 문장이 장소 부사가 빠진 완전한 문장이라 관계부사 where를 써요.",tag:"관계부사"},
+ {a:"Why didn't you answer my call?",pre:"Sorry, my phone",answer:["was","turned off","while","I","was taking"],post:"my exam.",extra:"during",tip:"뒤에 주어와 동사(I was taking)가 오니 접속사 while이에요. during 뒤에는 명사만 와요.",tag:"while / during"}
+];
+
+const HARD = [
+ {a:"Did you get the materials for the seminar?",pre:"Not yet. The",answer:["list","of","required books","was","posted"],post:"only this morning.",extra:"were",tip:"주어는 books가 아니라 list(단수)예요. 가까운 복수 명사에 끌려 were를 고르기 쉬워요.",tag:"수일치: of 뒤 명사에 속지 않기"},
+ {a:"What did the survey show?",pre:"The",answer:["results","of","the survey","were","surprising"],post:".",extra:"was",tip:"주어는 results(복수)라 were예요. 바로 앞 survey(단수)에 끌리면 안 돼요.",tag:"수일치: of 뒤 명사에 속지 않기"},
+ {a:"What do we need for the field trip?",pre:"",answer:["Each","of the students","has","to bring","a signed form"],post:".",extra:"have",tip:"Each of + 복수 명사는 '각각 하나'라서 단수 동사 has를 써요.",tag:"수일치: each"},
+ {a:"Is the scholarship competitive?",pre:"Very. The",answer:["number","of applicants","has","increased","every year"],post:".",extra:"have",tip:"The number of는 '수'가 주어라 단수(has)예요. A number of는 '많은'이라 복수예요.",tag:"수일치: the number of"},
+ {a:"Was the workshop crowded?",pre:"Yes,",answer:["there","were","more people","than","we expected"],post:".",extra:"was",tip:"There + be 동사는 뒤의 진짜 주어(more people, 복수)에 맞춰 were를 써요.",tag:"수일치: there is/are"},
+ {a:"Why are you so tired?",pre:"",answer:["Writing","three essays","in one week","was","exhausting"],post:".",extra:"were",tip:"동명사 주어(Writing ~)는 하나의 행위라 단수 was를 써요. essays에 속지 마세요.",tag:"수일치: 동명사 주어"},
+ {a:"Is the new schedule popular?",pre:"I think so.",answer:["Everyone","in my classes","seems","to like","it"],post:".",extra:"seem",tip:"Everyone은 단수 취급이라 seems예요. classes(복수)에 끌리기 쉬워요.",tag:"수일치: everyone"},
+ {a:"Did you two enjoy the concert?",pre:"",answer:["Both","my roommate","and I","were","impressed"],post:"by the band.",extra:"was",tip:"A and B로 묶인 주어는 복수라 were를 써요.",tag:"수일치: A and B"},
+ {a:"How's your hardest class going?",pre:"Honestly,",answer:["economics","is","harder","than","I thought"],post:".",extra:"are",tip:"economics, mathematics 같은 학문명은 -s로 끝나도 단수라 is를 써요.",tag:"수일치: -s로 끝나는 학문명"},
+ {a:"Are you going to apply for the internship?",pre:"Definitely. If I",answer:["were","you,","I'd","apply","this week"],post:".",extra:"was",tip:"내가 너일 수는 없으니 현재 사실과 반대되는 가정이에요. 이때는 주어가 I여도 were가 표준이에요. If I was는 실제 과거 일을 말할 때 써요(If I was rude yesterday, I'm sorry).",tag:"가정법 were / 실제 과거 was"},
+ {a:"Did you catch the start of the lecture?",pre:"No, it",answer:["had already","started","by the time","I","arrived"],post:".",extra:"has already",tip:"내가 도착한 과거 시점보다 더 이전에 시작했으니 과거완료 had started예요.",tag:"과거완료"},
+ {a:"Is the library busy today?",pre:"Not really. Only",answer:["a few","students","are","studying","there"],post:"right now.",extra:"is",tip:"a few + 복수 명사(students)가 주어라 are예요.",tag:"수일치: a few"},
+ {a:"How was the field trip?",pre:"Great!",answer:["Neither","the bus ride","nor","the weather","was"],post:"a problem.",extra:"were",tip:"Neither A nor B는 B에 동사를 맞춰요. the weather(단수)라 was예요.",tag:"수일치: neither A nor B"},
+ {a:"Did the announcement surprise you?",pre:"Yes. The news",answer:["about","the tuition increase","was","announced","yesterday"],post:".",extra:"were",tip:"news는 -s로 끝나도 셀 수 없는 단수 명사라 was예요.",tag:"수일치: news"},
+ {a:"Are your notes ready to share?",pre:"Almost.",answer:["Some","of the information","is","missing","from"],post:"page two.",extra:"are",tip:"Some of 뒤 명사에 동사를 맞춰요. information은 셀 수 없어서 is예요.",tag:"수일치: some of"},
+ {a:"Who is giving the presentation?",pre:"My partner and I",answer:["are","going","to present","it","together"],post:".",extra:"am",tip:"주어가 My partner and I(복수)라 are예요. 바로 앞 I에 끌려 am을 고르기 쉬워요.",tag:"수일치: A and I"},
+ {a:"Did you hear about the quiz?",pre:"Yes,",answer:["one","of the questions","was","about","the reading"],post:"we skipped.",extra:"were",tip:"주어는 one(하나)이라 was예요.",tag:"수일치: one of"},
+ {a:"What happened at the club meeting?",pre:"The members",answer:["who","joined","this year","were","asked"],post:"to lead a project.",extra:"was",tip:"주어는 members(복수)라 were예요. this year에 속지 마세요.",tag:"수일치: 관계사절 뒤 동사"},
+ {a:"Why is the cafeteria closed?",pre:"",answer:["The kitchen","equipment","is","being","repaired"],post:"today.",extra:"are",tip:"equipment는 셀 수 없는 명사라 단수 is예요.",tag:"수일치: 셀 수 없는 명사"},
+ {a:"Have you two known each other long?",pre:"Yes, we",answer:["had","met","before","we","moved"],post:"into the same dorm.",extra:"have",tip:"이사한 과거 시점보다 먼저 만났으니 과거완료 had met이에요.",tag:"과거완료"}
+];
+const ORDER = [
+ {a:"Do you remember the deadline?",pre:"I can't remember",answer:["when","the paper","is","due"],post:".",extra:"does",tip:"간접의문문은 의문사 + 주어 + 동사 어순이에요. does는 필요 없어요.",tag:"어순: 간접의문문"},
+ {a:"Is the professor strict about attendance?",pre:"She",answer:["rarely","lets","students","leave","early"],post:".",extra:"let",tip:"주어 She에 맞춰 lets예요. let + 목적어 + 동사원형(leave) 구조도 함께 기억해요.",tag:"어순: 사역동사"},
+ {a:"Can I borrow your laptop charger?",pre:"Sure, but",answer:["could","you","give","it","back"],post:"by noon?",extra:"returning",tip:"대명사 it은 give와 back 사이에 들어가요. give back it은 틀려요.",tag:"어순: 구동사 + 대명사"},
+ {a:"Do you know the TA well?",pre:"Not really. I",answer:["have","never","talked","to","him"],post:"in person.",extra:"ever",tip:"빈도부사 never는 have와 과거분사 사이에 와요. ever는 부정문에서 never 대신 쓰지 않아요.",tag:"어순: 빈도부사"},
+ {a:"What did the advisor ask you?",pre:"She asked",answer:["what","my","plans","were","after"],post:"graduation.",extra:"did",tip:"간접의문문이라 의문문 어순이 아니에요. did를 넣지 않아요.",tag:"어순: 간접의문문"},
+ {a:"Why are you studying in the lounge?",pre:"My room is",answer:["too","noisy","for","me","to focus"],post:".",extra:"very",tip:"'너무 ~해서 할 수 없다'는 too + 형용사 + for 사람 + to부정사예요.",tag:"어순: too ~ to"},
+ {a:"Is the campus shuttle reliable?",pre:"Not really. It",answer:["is","usually","ten minutes","late"],post:".",extra:"usual",tip:"동사를 꾸미는 자리에는 부사 usually가 와요. 형용사 usual은 못 들어가요.",tag:"어순: 빈도부사"},
+ {a:"Did you finish the group project?",pre:"Almost.",answer:["We","still","need","to add","a conclusion"],post:".",extra:"yet",tip:"긍정문에서 '아직'은 still이에요. yet은 주로 부정문과 의문문에 써요.",tag:"어순: still / yet"},
+ {a:"I'm looking for the gym.",pre:"Do you know",answer:["where","the main entrance","of","the stadium","is"],post:"? The gym is next to it.",extra:"does",tip:"Do you know 뒤는 의문사 + 주어 + 동사(is) 어순이에요.",tag:"어순: 간접의문문"},
+ {a:"What did you think of the movie?",pre:"I",answer:["didn't","enjoy","it","as much","as"],post:"I expected.",extra:"so",tip:"as much as로 비교해요. 원급 비교는 as ~ as 짝을 맞춰요.",tag:"어순: as ~ as"}
+];
+const SETS = {base:BASE, hard:HARD, order:ORDER, all:BASE.concat(HARD, ORDER)};
+
+let items = BASE, idx = 0, placed = [], pool = [], checked = false, score = 0, done = 0, missed = [], start = Date.now();
+const $ = s => document.querySelector(s);
+const card = $("#card");
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function load(){
+  const it = items[idx];
+  const chunks = it.answer.concat([it.extra]).map((t,i)=>({id:i,t}));
+  pool = shuffle(chunks);
+  if (pool.map(c=>c.t).join("|")===chunks.map(c=>c.t).join("|")) pool = shuffle(chunks);
+  placed = it.answer.map(()=>null);
+  checked = false;
+  render();
+}
+
+function render(){
+  if (idx >= items.length) return renderSummary();
+  const it = items[idx];
+  const slots = placed.map((c,i)=>{
+    let cls = "slot" + (c?"":" empty");
+    if (checked && c) cls += c.t===it.answer[i] ? " right" : " wrong";
+    return `<button type="button" class="${cls}" data-slot="${i}" aria-label="빈칸 ${i+1}${c?": "+esc(c.t):""}">${c?esc(c.t):"빈칸"}</button>`;
+  }).join("");
+  const tray = pool.filter(c=>!placed.includes(c)).map(c=>
+    `<button type="button" class="chip${checked&&c.t===it.extra?" extra":""}" draggable="${!checked}" data-chip="${c.id}">${esc(c.t)}</button>`).join("");
+  const full = placed.every(Boolean);
+  let fb = "";
+  if (checked){
+    const ok = placed.every((c,i)=>c.t===it.answer[i]);
+    const sentence = [it.pre, it.answer.join(" "), it.post].filter(Boolean).join(" ").replace(/\s+([.?!,])/g,"$1");
+    fb = `<div class="fb ${ok?"good":"bad"}"><div class="verdict">${ok?"정답이에요":"다시 확인해 보세요"}</div>
+      <div class="ans">${esc(sentence)}</div>
+      <div class="tip">남는 보기: <b>${esc(it.extra)}</b>. ${esc(it.tip||"")}</div></div>`;
+  }
+  card.innerHTML = `
+    <div class="qhead"><span class="ins">Make an appropriate sentence.</span><span class="num">${idx+1} / ${items.length}</span></div>
+    <div class="turn"><div class="av" aria-hidden="true">A</div><div class="say a">${esc(it.a)}</div></div>
+    <div class="turn"><div class="av b" aria-hidden="true">B</div>
+      <div class="line">${it.pre?`<span class="fixed">${esc(it.pre)}</span>`:""}${slots}${it.post?`<span class="fixed">${esc(it.post)}</span>`:""}</div></div>
+    <div class="tray" id="tray">${tray || '<span class="hint">보기를 모두 사용했어요</span>'}</div>
+    ${checked?"":'<p class="hint">보기를 누르거나 끌어서 빈칸에 넣으세요. 채운 빈칸을 누르면 돌아가요. 보기 하나는 남아요.</p>'}
+    ${fb}
+    <div class="actions">
+      ${checked
+        ? `<button type="button" class="btn" id="retry">다시 풀기</button><button type="button" class="btn primary" id="next">${idx+1<items.length?"다음 문제":"결과 보기"}</button>`
+        : `<button type="button" class="btn" id="clear">초기화</button><button type="button" class="btn primary" id="check" ${full?"":"disabled"}>채점하기</button>`}
+    </div>`;
+  updateScore();
+}
+
+function renderSummary(){
+  const pct = done ? Math.round(score/done*100) : 0;
+  card.innerHTML = `<div class="summary">
+    <div class="qhead"><span class="ins">결과</span><span class="num">${fmt(Date.now()-start)} 소요</span></div>
+    <div class="big">${score} / ${done}</div>
+    <div>정답률 ${pct}%</div>
+    ${missed.length?`<div><b>틀린 문제</b></div><ol class="missed">${missed.map(m=>`<li><div>${esc(m.s)}</div><div class="tag">${esc(m.tag||"")}</div></li>`).join("")}</ol>`:"<div>모두 맞혔어요.</div>"}
+    <div class="actions"><button type="button" class="btn primary" id="restart">처음부터 다시</button></div></div>`;
+  updateScore();
+}
+
+function updateScore(){ $("#score").textContent = `${score} / ${done}`; }
+function fmt(ms){const s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+setInterval(()=>{ if(idx<items.length) $("#clock").textContent = fmt(Date.now()-start); },1000);
+
+function place(chipId, slotIdx){
+  if (checked) return;
+  const c = pool.find(x=>x.id===chipId); if(!c) return;
+  const from = placed.indexOf(c); if (from>-1) placed[from]=null;
+  if (slotIdx==null){ slotIdx = placed.indexOf(null); if (slotIdx<0) return; }
+  placed[slotIdx] = c;
+  render();
+}
+
+card.addEventListener("click", e=>{
+  const chip = e.target.closest("[data-chip]");
+  const slot = e.target.closest("[data-slot]");
+  if (chip) return place(+chip.dataset.chip);
+  if (slot && !checked){ placed[+slot.dataset.slot]=null; return render(); }
+  const id = e.target.id;
+  if (id==="clear"){ placed = placed.map(()=>null); render(); }
+  if (id==="check"){
+    const it = items[idx]; checked = true; done++;
+    const ok = placed.every((c,i)=>c.t===it.answer[i]);
+    if (ok) score++; else missed.push({s:[it.pre,it.answer.join(" "),it.post].filter(Boolean).join(" ").replace(/\s+([.?!,])/g,"$1"),tag:it.tag||it.tip});
+    render();
+  }
+  if (id==="retry"){ const it=items[idx]; done--; if(placed.every((c,i)=>c.t===it.answer[i])) score--; else missed.pop(); load(); }
+  if (id==="next"){ idx++; idx<items.length ? load() : render(); }
+  if (id==="restart"){ idx=0; score=0; done=0; missed=[]; start=Date.now(); load(); }
+});
+
+let dragId = null;
+card.addEventListener("dragstart", e=>{ const c=e.target.closest("[data-chip]"); if(!c) return; dragId=+c.dataset.chip; e.dataTransfer.setData("text/plain",String(dragId)); e.dataTransfer.effectAllowed="move"; });
+card.addEventListener("dragover", e=>{ const t=e.target.closest("[data-slot],#tray"); if(t&&dragId!=null){ e.preventDefault(); t.classList.add("over"); } });
+card.addEventListener("dragleave", e=>{ const t=e.target.closest("[data-slot],#tray"); if(t) t.classList.remove("over"); });
+card.addEventListener("drop", e=>{
+  const slot=e.target.closest("[data-slot]"), tray=e.target.closest("#tray");
+  if (dragId==null) return; e.preventDefault();
+  if (slot) place(dragId, +slot.dataset.slot);
+  else if (tray){ const c=pool.find(x=>x.id===dragId); const i=placed.indexOf(c); if(i>-1){placed[i]=null; render();} }
+  dragId=null;
+});
+card.addEventListener("dragend", ()=>{ dragId=null; });
+
+$("#copyBtn").addEventListener("click", ()=>{
+  const t = $("#promptText").textContent, m = $("#copyMsg");
+  const fallback = ()=>{ const r=document.createRange(); r.selectNodeContents($("#promptText")); const s=getSelection(); s.removeAllRanges(); s.addRange(r); m.textContent="선택했어요. 복사 단축키로 복사해 주세요."; };
+  try { navigator.clipboard.writeText(t).then(()=>{ m.textContent="복사했어요."; m.className="msg ok"; }, fallback); } catch(_){ fallback(); }
+});
+
+$("#loadBtn").addEventListener("click", ()=>{
+  const m = $("#loadMsg"); m.className="msg";
+  let raw = $("#jsonIn").value.trim();
+  const s = raw.indexOf("["), e = raw.lastIndexOf("]");
+  if (s>-1 && e>s) raw = raw.slice(s, e+1);
+  try{
+    const arr = JSON.parse(raw);
+    const ok = Array.isArray(arr) && arr.length && arr.every(x=>x && typeof x.a==="string" && Array.isArray(x.answer) && x.answer.length>=2 && typeof x.extra==="string" && !x.answer.includes(x.extra));
+    if(!ok) throw new Error();
+    items = arr.map(x=>({a:x.a,pre:x.pre||"",answer:x.answer.map(String),post:x.post||"",extra:x.extra,tip:x.tip||"",tag:x.tag||x.tip||""}));
+    markSet(""); idx=0; score=0; done=0; missed=[]; start=Date.now(); load();
+    m.textContent = `${items.length}문제를 불러왔어요.`; m.className="msg ok";
+    card.scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(_){
+    m.textContent = "형식을 읽지 못했어요. AI 결과에서 [ 로 시작해 ] 로 끝나는 부분만 붙여넣어 주세요."; m.className="msg err";
+  }
+});
+function markSet(k){ document.querySelectorAll(".set").forEach(b=>b.classList.toggle("on", b.dataset.set===k)); }
+document.querySelector(".sets").addEventListener("click", e=>{
+  const b = e.target.closest("[data-set]"); if(!b) return;
+  items = b.dataset.set==="all" ? shuffle(SETS.all) : SETS[b.dataset.set];
+  markSet(b.dataset.set); idx=0; score=0; done=0; missed=[]; start=Date.now(); load();
+});
+$("#resetSet").addEventListener("click", ()=>{ markSet("base"); items=BASE; idx=0; score=0; done=0; missed=[]; start=Date.now(); load(); $("#loadMsg").textContent="기본 문제로 돌아왔어요."; $("#loadMsg").className="msg ok"; });
+
+load();
+</script>
+
+</body></html>
