@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wear the Golden Hour · Yewon Jung</title>
+<meta name="description" content="A TV pause ad leads viewers to a mobile landing page for a $24 limited edition Google cap. Every step is tagged from ad impression to purchase.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F4FA; --surface: #FFFFFF; --ink: #1C1B2E; --muted: #625F78;
+    --line: #DCD9E8; --cobalt: #2F44C7; --pink: #F27A97;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #15142A; --surface: #1E1D36; --ink: #EEEDF7; --muted: #A6A3BE; --line: #34325A; --cobalt: #8C9BFF; --pink: #FF9AB2; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Instrument Sans", system-ui, sans-serif; font-size: 17px; line-height: 1.6; }
+  a { color: var(--cobalt); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; border-radius: 2px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 28px 0; font-size: 15px; }
+  nav .mark { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; }
+  .crumb { color: var(--muted); font-size: 15px; margin: 32px 0 10px; }
+  .crumb a { color: var(--muted); }
+  h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: clamp(40px, 7vw, 76px); letter-spacing: -0.03em; line-height: 1; margin: 0 0 18px; }
+  .lede { font-size: clamp(18px, 2.3vw, 22px); line-height: 1.45; max-width: 46ch; margin: 0 0 32px; }
+  .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 40px; }
+  .meta dt { font-size: 13px; color: var(--muted); }
+  .meta dd { margin: 2px 0 0; font-weight: 600; font-size: 15px; }
+  .points { list-style: none; padding: 0; margin: 0 0 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .points li { background: var(--surface); border-radius: 16px; padding: 22px; }
+  .points h2 { font-size: 17px; margin: 0 0 6px; }
+  .points p { margin: 0; color: var(--muted); font-size: 15px; }
+  .slides { display: grid; gap: 24px; margin-bottom: 40px; }
+  .slides figure { margin: 0; }
+  .slides a { display: block; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+  .slides img { display: block; width: 100%; height: auto; }
+  .slides figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .note { color: var(--muted); font-size: 13px; font-style: italic; }
+  .back { display: inline-block; margin: 8px 0 64px; padding: 11px 20px; border-radius: 999px; border: 1.5px solid var(--ink); color: var(--ink); text-decoration: none; font-weight: 600; font-size: 15px; }
+  .back:hover { border-color: var(--cobalt); }
+  @media (max-width: 720px) {
+    .meta { grid-template-columns: 1fr; gap: 10px; }
+    .points { grid-template-columns: 1fr; }
+  }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 40px; }
+  .links a { display: inline-block; padding: 11px 20px; border-radius: 999px; background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 600; font-size: 15px; }
+  .slides.square { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 720px) { .slides.square { grid-template-columns: 1fr; } }
+  .deck-h { font-family: "Bricolage Grotesque", sans-serif; font-size: 26px; font-weight: 600; margin: 48px 0 6px; }
+  .deck-p { color: var(--muted); margin: 0 0 20px; max-width: 60ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav aria-label="Main">
+    <a class="mark" href="../../">Yewon Jung</a>
+    <a href="../../#academic">All projects</a>
+  </nav>
+  <p class="crumb"><a href="../../#academic">Customer Journey Analytics</a> / Rutgers Business School</p>
+  <h1>Wear the Golden Hour</h1>
+  <p class="lede">A TV pause ad leads viewers to a mobile landing page for a $24 limited edition Google cap. Every step is tagged from ad impression to purchase.</p>
+  <dl class="meta"><div><dt>Course</dt><dd>Customer Journey Analytics, Rutgers</dd></div><div><dt>Term</dt><dd>Fall 2026</dd></div><div><dt>Skills</dt><dd>GA4 events, UTM tracking and landing page design</dd></div></dl>
+  <ul class="points"><li><h2>One product, one action</h2><p>A single headline and a single call to action on the TV and on the phone.</p></li><li><h2>Tagged end to end</h2><p>GA4 events and UTM parameters track the path from TV view to phone purchase.</p></li><li><h2>Built for Gen Z tech fans</h2><p>Ages 18 to 30 who watch YouTube on their TV and shop on their phone.</p></li></ul>
+  <h2 class="deck-h">Campaign proposal</h2><p class="deck-p">The product, the TV pause ad, the mobile landing page and the cross channel metrics.</p><div class="slides"><figure><a href="slide-1.webp" target="_blank" rel="noopener"><img src="slide-1.webp" width="2000" height="1125" loading="lazy" alt="Campaign proposal slide 1"></a></figure><figure><a href="slide-2.webp" target="_blank" rel="noopener"><img src="slide-2.webp" width="2000" height="1125" loading="lazy" alt="Campaign proposal slide 2"></a></figure><figure><a href="slide-3.webp" target="_blank" rel="noopener"><img src="slide-3.webp" width="2000" height="1125" loading="lazy" alt="Campaign proposal slide 3"></a></figure><figure><a href="slide-4.webp" target="_blank" rel="noopener"><img src="slide-4.webp" width="2000" height="1125" loading="lazy" alt="Campaign proposal slide 4"></a></figure><figure><a href="slide-5.webp" target="_blank" rel="noopener"><img src="slide-5.webp" width="2000" height="1125" loading="lazy" alt="Campaign proposal slide 5"></a></figure><figure><a href="slide-6.webp" target="_blank" rel="noopener"><img src="slide-6.webp" width="2000" height="1125" loading="lazy" alt="Campaign proposal slide 6"></a></figure><figure><a href="slide-7.webp" target="_blank" rel="noopener"><img src="slide-7.webp" width="2000" height="1125" loading="lazy" alt="Campaign proposal slide 7"></a></figure><figure><a href="slide-8.webp" target="_blank" rel="noopener"><img src="slide-8.webp" width="2000" height="1125" loading="lazy" alt="Campaign proposal slide 8"></a></figure></div>
+  <p class="note">Student class project. Not affiliated with or endorsed by Google. Tap any slide to see it full size.</p>
+  <a class="back" href="../../#academic">Back to all projects</a>
+</div>
+<script src="../../assets/cat.js"></script>
+</body>
+</html>
