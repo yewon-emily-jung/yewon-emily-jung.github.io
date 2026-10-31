@@ -159,6 +159,11 @@
   @media (max-width: 720px) { .cases { grid-template-columns: 1fr; } }
 
   .vids { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .vids.five { grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .grp { font-family: "Bricolage Grotesque", sans-serif; font-size: 22px; font-weight: 600; margin: 40px 0 6px; }
+  .grp + .vids { margin-top: 16px; }
+  .grp-intro { color: var(--muted); font-size: 15px; max-width: 60ch; margin: 0 0 16px; }
+  .vid.post .thumb { aspect-ratio: 4 / 5; }
   .vid h3 { font-size: 17px; margin: 6px 0 4px; font-weight: 600; }
   .vid p { margin: 0; color: var(--muted); font-size: 14px; }
   .vid .thumb { position: relative; display: block; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background: #000; }
@@ -169,7 +174,7 @@
   .vid .stat { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--cobalt); }
   .vid .vlinks { margin-top: 8px; display: flex; gap: 12px; }
   .vid .vlinks a { font-weight: 600; font-size: 14px; }
-  @media (max-width: 860px) { .vids { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 860px) { .vids, .vids.five { grid-template-columns: repeat(2, 1fr); } }
 </style>
 </head>
 <body>
@@ -383,6 +388,7 @@
             <li>Ranked #1 of 30 reporters in total engagement.</li>
             <li>Averaged 4,000+ views per post. That is about 4x the group average.</li>
             <li>Tested Reels and carousels against audience response. Used generative AI to explain policy in plain language.</li>
+            <li>My AI character design passed the first round of the COMEUP 2025 AI character contest.</li>
           </ul>
         </div>
       </li>
@@ -528,39 +534,128 @@
   </section>
 
   <section id="channel">
-    <h2>My own channel</h2>
-    <p class="intro">Short form videos I plan, shoot and edit myself. K-beauty, baseball, AI and US shopping content.</p>
-    <div class="vids">
-      <article class="vid">
-        <a class="thumb" href="https://youtube.com/shorts/7qe0UIIFoYg" target="_blank" rel="noopener"><img src="videos/uscart.webp" width="450" height="800" loading="lazy" alt="US grocery picks video thumbnail"><span class="play" aria-hidden="true"></span></a>
+    <h2>Content highlights</h2>
+    <p class="intro">Short form videos and carousels I planned, designed and edited myself.</p>
+
+    <h3 class="grp">Reels and Shorts</h3>
+    <div class="vids five">
+      <article class="vid tall">
+        <a class="thumb" href="https://youtube.com/shorts/7qe0UIIFoYg" target="_blank" rel="noopener"><img src="videos/uscart.webp" width="450" height="800" loading="lazy" alt="US grocery picks thumbnail"><span class="play" aria-hidden="true"></span></a>
         <div class="stats"><span class="stat">27K views on YouTube</span><span class="stat">14.4K on Instagram</span></div>
         <h3>US grocery picks</h3>
-        <p>My must buy list from Trader Joe's, Target and Walmart.</p>
+        <p>My must buy list from Trader Joe&#x27;s, Target and Walmart.</p>
         <p class="vlinks"><a href="https://youtube.com/shorts/7qe0UIIFoYg" target="_blank" rel="noopener">YouTube</a> <a href="https://www.instagram.com/reel/DMHZQS1S-Iu/" target="_blank" rel="noopener">Instagram</a></p>
       </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/reel/DNUUyf2yVAm/" target="_blank" rel="noopener"><img src="videos/nuse.webp" width="450" height="800" loading="lazy" alt="NUSE x SSG Landers fan video video thumbnail"><span class="play" aria-hidden="true"></span></a>
+      <article class="vid tall">
+        <a class="thumb" href="https://www.instagram.com/reel/DNUUyf2yVAm/" target="_blank" rel="noopener"><img src="videos/nuse.webp" width="450" height="800" loading="lazy" alt="NUSE x SSG Landers fan video thumbnail"><span class="play" aria-hidden="true"></span></a>
         <div class="stats"><span class="stat">Reposted by NUSE</span></div>
         <h3>NUSE x SSG Landers fan video</h3>
         <p>I turned NUSE products into baseball players for their Landers collab. NUSE reposted it, sent me a seeding kit and asked to use it in their marketing.</p>
         <p class="vlinks"><a href="https://www.instagram.com/reel/DNUUyf2yVAm/" target="_blank" rel="noopener">Instagram</a></p>
       </article>
-      <article class="vid">
-        <a class="thumb" href="https://youtube.com/shorts/05FzaezqrRo" target="_blank" rel="noopener"><img src="videos/landers.webp" width="450" height="800" loading="lazy" alt="KBO fan trend Reel video thumbnail"><span class="play" aria-hidden="true"></span></a>
+      <article class="vid tall">
+        <a class="thumb" href="https://youtube.com/shorts/05FzaezqrRo" target="_blank" rel="noopener"><img src="videos/landers.webp" width="450" height="800" loading="lazy" alt="KBO fan trend Reel thumbnail"><span class="play" aria-hidden="true"></span></a>
         <div class="stats"><span class="stat">20K views on YouTube</span></div>
         <h3>KBO fan trend Reel</h3>
         <p>A long distance fan story made with the No Roots sound trend.</p>
         <p class="vlinks"><a href="https://youtube.com/shorts/05FzaezqrRo" target="_blank" rel="noopener">YouTube</a></p>
       </article>
-      <article class="vid">
-        <a class="thumb" href="https://youtube.com/shorts/Nt5jhoA4Cyk" target="_blank" rel="noopener"><img src="videos/chatgpt.webp" width="450" height="800" loading="lazy" alt="ChatGPT character prompt video thumbnail"><span class="play" aria-hidden="true"></span></a>
+      <article class="vid tall">
+        <a class="thumb" href="https://www.instagram.com/reel/DNaVIeHyDTe/" target="_blank" rel="noopener"><img src="videos/baseball-10-things.webp" width="450" height="800" loading="lazy" alt="10 things I hate about baseball thumbnail"><span class="play" aria-hidden="true"></span></a>
+        <div class="stats"><span class="stat">Trend remix</span></div>
+        <h3>10 things I hate about baseball</h3>
+        <p>A pop song trend turned into ten reasons baseball fans get mad.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/reel/DNaVIeHyDTe/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid tall">
+        <a class="thumb" href="https://youtube.com/shorts/Nt5jhoA4Cyk" target="_blank" rel="noopener"><img src="videos/chatgpt.webp" width="450" height="800" loading="lazy" alt="ChatGPT character prompt thumbnail"><span class="play" aria-hidden="true"></span></a>
         <div class="stats"><span class="stat">5K views on YouTube</span></div>
         <h3>ChatGPT character prompt</h3>
         <p>I shared a prompt that turns you into a cute game character in seconds.</p>
         <p class="vlinks"><a href="https://youtube.com/shorts/Nt5jhoA4Cyk" target="_blank" rel="noopener">YouTube</a></p>
       </article>
     </div>
-    <p style="margin-top:28px"><a class="btn" href="https://www.instagram.com/yeactivity13/" target="_blank" rel="noopener">Visit @yeactivity13</a></p>
+
+    <h3 class="grp">Carousels</h3>
+    <div class="vids four">
+      <article class="vid post">
+        <a class="thumb" href="https://www.instagram.com/p/DMSg6_lSc-D/" target="_blank" rel="noopener"><img src="videos/kbo-cheer.webp" width="480" height="600" loading="lazy" alt="KBO cheer song all star game thumbnail"></a>
+        <div class="stats"><span class="stat">19.2K views</span><span class="stat">491 shares</span><span class="stat">34 reposts</span></div>
+        <h3>KBO cheer song all star game</h3>
+        <p>My own all star lineup of KBO cheer songs, made after the All Star Game in Daejeon.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/p/DMSg6_lSc-D/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid post">
+        <a class="thumb" href="https://www.instagram.com/p/DNdljtMSy02/" target="_blank" rel="noopener"><img src="videos/hackers-lc.webp" width="480" height="600" loading="lazy" alt="TOEIC LC tips for a 990 thumbnail"></a>
+        <div class="stats"><span class="stat">6.4K views</span></div>
+        <h3>TOEIC LC tips for a 990</h3>
+        <p>Listening tips that focus on key words, made as a Hackers content marketer.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/p/DNdljtMSy02/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid post">
+        <a class="thumb" href="https://www.instagram.com/p/DNxZ1uk4vHl/" target="_blank" rel="noopener"><img src="videos/hackers-rc.webp" width="480" height="600" loading="lazy" alt="TOEIC RC strategy thumbnail"></a>
+        <div class="stats"><span class="stat">3.8K views</span></div>
+        <h3>TOEIC RC strategy</h3>
+        <p>A clear plan for each reading part of the TOEIC.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/p/DNxZ1uk4vHl/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+    </div>
+
+    <h3 class="grp">Ministry of SMEs and Startups</h3>
+    <p class="grp-intro">As a Content and Marketing Reporter, I turned policy into posts people save and share. I ranked #1 of 30 reporters in total engagement.</p>
+    <div class="vids four">
+      <article class="vid post">
+        <a class="thumb" href="https://www.instagram.com/p/DRy3_6AEQtj/" target="_blank" rel="noopener"><img src="videos/mss-ai-character.webp" width="480" height="600" loading="lazy" alt="COMEUP 2025 AI characters thumbnail"></a>
+        <div class="stats"><span class="stat">AI design</span><span class="stat">Contest first round</span></div>
+        <h3>COMEUP 2025 AI characters</h3>
+        <p>I designed two characters for a global startup festival with AI. They passed the first round of the COMEUP AI character contest.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/p/DRy3_6AEQtj/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid post">
+        <a class="thumb" href="https://www.instagram.com/p/DNdY8PzyXul/" target="_blank" rel="noopener"><img src="videos/mss-busan.webp" width="480" height="600" loading="lazy" alt="My coupon trip to Busan thumbnail"></a>
+        <div class="stats"><span class="stat">6.6K views</span><span class="stat">Engagement</span></div>
+        <h3>My coupon trip to Busan</h3>
+        <p>I joined the ministry&#x27;s coupon event myself. The post shows how fun it is to take part.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/p/DNdY8PzyXul/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid post">
+        <a class="thumb" href="https://www.instagram.com/p/DN8ObMvkQqe/" target="_blank" rel="noopener"><img src="videos/mss-payback.webp" width="480" height="600" loading="lazy" alt="Win Win Payback guide thumbnail"></a>
+        <div class="stats"><span class="stat">4.5K views</span></div>
+        <h3>Win Win Payback guide</h3>
+        <p>Spend more by card and get money back. The program in a few simple slides.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/p/DN8ObMvkQqe/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid post">
+        <a class="thumb" href="https://www.instagram.com/p/DNhTu6eS8gQ/" target="_blank" rel="noopener"><img src="videos/mss-coupon.webp" width="480" height="600" loading="lazy" alt="Coupon happiness challenge thumbnail"></a>
+        <div class="stats"><span class="stat">4K views</span></div>
+        <h3>Coupon happiness challenge</h3>
+        <p>Post a review of your coupon and get a gift. Clear steps to join the event.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/p/DNhTu6eS8gQ/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid post">
+        <a class="thumb" href="https://www.instagram.com/p/DPnOBP8EZem/" target="_blank" rel="noopener"><img src="videos/mss-budget.webp" width="480" height="600" loading="lazy" alt="2026 budget in one look thumbnail"></a>
+        <div class="stats"><span class="stat">2.4K views</span></div>
+        <h3>2026 budget in one look</h3>
+        <p>What changes in the ministry&#x27;s 2026 budget for youth, startups and small business.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/p/DPnOBP8EZem/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid post">
+        <a class="thumb" href="https://www.instagram.com/p/DSwVeW1ESTk/" target="_blank" rel="noopener"><img src="videos/mss-comeup.webp" width="480" height="600" loading="lazy" alt="COMEUP 2025 on site thumbnail"></a>
+        <div class="stats"><span class="stat">On site report</span></div>
+        <h3>COMEUP 2025 on site</h3>
+        <p>An on site report from a global startup festival in Seoul.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/p/DSwVeW1ESTk/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid post">
+        <a class="thumb" href="https://www.instagram.com/p/DQ63AYaCTY4/" target="_blank" rel="noopener"><img src="videos/mss-festival.webp" width="480" height="600" loading="lazy" alt="Korea Grand Festival guide thumbnail"></a>
+        <div class="stats"><span class="stat">Event guide</span></div>
+        <h3>Korea Grand Festival guide</h3>
+        <p>A guide to the 2025 national shopping festival and local events.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/p/DQ63AYaCTY4/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+    </div>
+
+    <p style="margin-top:32px"><a class="btn" href="https://www.instagram.com/yeactivity13/" target="_blank" rel="noopener">Visit @yeactivity13</a></p>
   </section>
 
   <section class="contact" id="contact">
