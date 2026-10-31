@@ -1,13 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Yewon (Emily) Jung</title>
-<meta name="description" content="Yewon (Emily) Jung. Marketing analytics student at Rutgers Business School. Social content creator and marketer.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta content="Yewon (Emily) Jung | Marketing strategy, analytics, consumer insights, and creative portfolio." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
   :root {
     --bg: #F5F4FA;
@@ -180,512 +181,606 @@
   .vid .vlinks a { font-weight: 600; font-size: 14px; }
   @media (max-width: 860px) { .vids, .vids.five { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 861px) and (max-width: 1000px) { .vids.five { grid-template-columns: repeat(3, 1fr); } }
+
+/* Editorial portfolio refresh */
+:root { --bg:#F7F9FC; --surface:#FFFFFF; --ink:#1C2534; --muted:#5D697A; --line:#DCE5EE; --cobalt:#568EBE; --pink:#E6A675; }
+@media (prefers-color-scheme:dark) { :root { --bg:#F7F9FC; --surface:#FFFFFF; --ink:#1C2534; --muted:#5D697A; --line:#DCE5EE; --cobalt:#568EBE; --pink:#E6A675; } }
+.wrap {max-width:1180px}
+nav {position:relative; z-index:10; border-bottom:1px solid var(--line)}
+nav ul {align-items:center}
+.hero {display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,1fr);align-items:center;gap:35px;padding:95px 0 110px;min-height:660px}
+.hero h1 {font-size:clamp(43px,5.4vw,78px);line-height:1.02;letter-spacing:-.045em}
+.hero h1 span {display:block}
+.hero .lede {font-size:clamp(17px,1.8vw,20px);max-width:48ch;margin:26px 0}
+.hero .ko {font-weight:600;color:var(--cobalt);margin-bottom:20px}
+.hero .hero-sub {font-size:14px;color:var(--muted);margin:0 0 24px}
+.hero .links {gap:12px}
+.hero-visual {height:460px;position:relative;isolation:isolate;perspective:1100px;min-width:0}
+.visual-glow {position:absolute;inset:10% 0 0 8%;border-radius:50%;background:radial-gradient(ellipse,#dcecf9 0%,#edf5fb 40%,transparent 72%);z-index:-1}
+.laptop {position:absolute;left:10%;top:23%;width:78%;transform:rotate(-7deg);filter:drop-shadow(12px 26px 20px rgba(29,51,76,.16))}
+.laptop-screen {background:#1C2534;border:9px solid #263241;border-radius:15px 15px 7px 7px;aspect-ratio:1.6;overflow:hidden;box-shadow:inset 0 0 0 1px #56606d}
+.laptop-ui {background:#fff;height:100%;padding:14px;display:flex;flex-direction:column;gap:12px}
+.laptop-ui .dots {color:#a2b4c4;font-size:11px;letter-spacing:3px;border-bottom:1px solid #e5edf3;padding-bottom:6px}
+.laptop-ui .screen-heading {font:800 clamp(14px,2vw,25px)/1.05 'Bricolage Grotesque',sans-serif;color:#25364b}
+.screen-row {display:grid;grid-template-columns:1fr 1fr;gap:9px;flex:1}
+.screen-module {border-radius:6px;background:#edf4f9;padding:10px;color:#416b8d;font-size:11px;font-weight:600}
+.screen-bars {height:54px;display:flex;gap:6px;align-items:end;margin-top:8px}
+.screen-bars i {display:block;width:14%;background:#8ab9dc;border-radius:3px 3px 0 0}
+.screen-bars i:nth-child(1){height:32%}.screen-bars i:nth-child(2){height:64%}.screen-bars i:nth-child(3){height:49%}.screen-bars i:nth-child(4){height:84%}.screen-bars i:nth-child(5){height:100%}
+.laptop-base {height:13px;margin:0 -5%;background:linear-gradient(#dfe5eb,#aab7c4);border-radius:2px 2px 45% 45%;box-shadow:0 4px 0 #9ba8b4}
+.cube {position:absolute;display:flex;flex-direction:column;justify-content:space-between;gap:8px;width:145px;min-height:122px;padding:16px;background:#fff;border:1px solid #d3e0ed;border-radius:13px;box-shadow:9px 11px 0 #c5d8e8,13px 17px 18px rgba(40,65,91,.12);text-decoration:none;color:var(--ink);transform:rotate(var(--angle));transition:transform .3s ease,box-shadow .3s ease;animation:floaty 6s ease-in-out infinite;animation-delay:var(--delay)}
+.cube:hover {transform:translateY(-9px) rotate(0deg);box-shadow:11px 15px 0 #b9d2e7,15px 20px 20px rgba(40,65,91,.15)}
+.cube strong {font:800 17px/1.1 'Bricolage Grotesque',sans-serif}
+.cube small {font-size:11px;color:var(--muted);line-height:1.35}
+.cube .mini {height:38px;border-radius:5px;overflow:hidden;background:linear-gradient(130deg,#b7d8ed,#e7f2fa);display:flex;align-items:center;justify-content:center;font-weight:800;color:#37688d;font-size:20px}
+.cube.strategy {left:0;top:5%;--angle:-11deg;--delay:-1s}
+.cube.analytics {right:0;top:0;--angle:10deg;--delay:-3s}
+.cube.creative {right:-1%;bottom:2%;--angle:8deg;--delay:-2s}
+.cube.journey {left:0;bottom:3%;--angle:-7deg;--delay:-4s}
+.cube.strategy .mini {background:#e4eefb}.cube.analytics .mini {background:#dceef0}.cube.creative .mini {background:#f8e6e0}.cube.journey .mini {background:#eae8fa}
+@keyframes floaty {0%,100%{translate:0 0}50%{translate:0 -8px}}
+.section-kicker {font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cobalt)}
+.work-overview {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:24px 0 36px}
+.work-overview a {border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:18px;text-decoration:none;color:var(--ink);font-weight:600;transition:transform .2s,border-color .2s}
+.work-overview a:hover {transform:translateY(-4px);border-color:var(--cobalt)}
+.work-overview small {display:block;color:var(--muted);font-weight:400;margin-top:6px}
+.case:hover {transform:translateY(-3px);transition:transform .2s}
+.reveal {opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible {opacity:1;transform:none}
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding:60px 0 65px;gap:8px}.hero-visual{height:390px;max-width:570px;width:100%;margin:auto}.work-overview{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.hero-visual{height:310px}.cube{width:110px;min-height:98px;padding:10px;box-shadow:5px 7px 0 #c5d8e8}.cube strong{font-size:13px}.cube small{font-size:9px}.cube .mini{height:25px;font-size:14px}.laptop{top:28%;width:80%}.laptop-ui{padding:7px;gap:4px}.screen-module{padding:5px;font-size:8px}.laptop-ui .screen-heading{font-size:13px}.screen-bars{height:27px}.work-overview{grid-template-columns:1fr 1fr}.work-overview a{padding:12px;font-size:13px}}
+@media(prefers-reduced-motion:reduce){.cube{animation:none;transition:none}.reveal{opacity:1;transform:none;transition:none}}
+
+/* V2: real project previews + a more complete laptop dashboard */
+.laptop-ui{gap:7px;padding:11px}
+.laptop-ui .dots{display:flex;justify-content:space-between;align-items:center;flex-shrink:0;font-size:8px;padding-bottom:5px}
+.screen-url{font:500 9px 'Instrument Sans',sans-serif;color:#8b9bad;letter-spacing:0}
+.screen-top{display:flex;justify-content:space-between;align-items:center;min-height:56px}
+.screen-eyebrow,.screen-panel>span{font:700 8px 'Instrument Sans',sans-serif;letter-spacing:.09em;color:#6184a2}
+.screen-top .screen-heading{font-size:clamp(14px,1.65vw,23px);line-height:1.05;margin-top:4px}
+.screen-memoji{width:58px;height:58px;object-fit:contain}
+.screen-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:6px;min-height:0;flex:1}
+.screen-panel{background:#f1f6fa;border:1px solid #e3edf4;border-radius:6px;padding:6px;min-width:0;display:flex;flex-direction:column;gap:3px;overflow:hidden}
+.screen-panel img{width:100%;height:45px;object-fit:cover;border-radius:3px;min-height:0}
+.screen-panel-feature img{object-position:center}
+.screen-panel-creative img{object-position:center 20%}
+.screen-panel b{font:700 9px 'Bricolage Grotesque',sans-serif;color:#273e52}
+.screen-panel small{font:500 7px 'Instrument Sans',sans-serif;color:#658198;line-height:1.2}
+.screen-panel-data .screen-bars{margin-top:auto;height:52px;gap:3px}
+.screen-panel-data .screen-bars i{width:17%}
+.screen-bottom{font:700 8px 'Instrument Sans',sans-serif;color:#587c99;letter-spacing:.05em;flex-shrink:0}
+.screen-bottom span{color:#a6bdcf}
+.cube .mini{height:51px}
+.cube .mini img{width:100%;height:100%;object-fit:cover;display:block}
+.cube .mini-memoji img{object-fit:contain;background:#e8f2fc}
+.cube.journey strong{font-size:15px}
+.mini-chart{display:flex;align-items:end;gap:7px;width:76%;height:38px;border-bottom:2px solid #a7c6dd}
+.mini-chart i{flex:1;background:#76a7ce;border-radius:3px 3px 0 0;height:38%}
+.mini-chart i:nth-child(2){height:70%}.mini-chart i:nth-child(3){height:53%}.mini-chart i:nth-child(4){height:90%}.mini-chart i:nth-child(5){height:78%}
+@media(max-width:520px){.laptop-ui{padding:6px;gap:3px}.screen-top{min-height:34px}.screen-memoji{width:33px;height:33px}.screen-eyebrow,.screen-panel>span{font-size:5px}.screen-top .screen-heading{font-size:12px}.screen-grid{gap:3px}.screen-panel{padding:3px;gap:2px}.screen-panel img{height:26px}.screen-panel b{font-size:6px}.screen-panel small{font-size:5px}.screen-panel-data .screen-bars{height:23px}.screen-bottom{font-size:5px}.screen-url{font-size:6px}.cube .mini{height:33px}.cube.journey strong{font-size:12px}.mini-chart{height:25px;gap:4px}}
 </style>
-</head>
+<style>
+/* V4: four distinct work samples and a fuller laptop workspace */
+.screen-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.screen-panel{padding:5px;gap:4px}
+.screen-panel img{height:57px;object-fit:cover}
+.screen-panel>span{font-size:7px;letter-spacing:0}
+.screen-panel small{font-size:7px}
+.cube .journey-preview{display:flex;align-items:center;justify-content:center;height:100%;width:100%;padding:5px;text-align:center;background:linear-gradient(130deg,#e6e7f8,#cbdcf0);color:#465d87;font:800 10px/1.3 'Bricolage Grotesque',sans-serif}
+@media(max-width:520px){.screen-grid{gap:3px}.screen-panel{padding:3px}.screen-panel img{height:31px}.screen-panel>span{font-size:5px}.screen-panel small{font-size:5px}.cube .journey-preview{font-size:7px}}
+<style>
+/* V5: YEWON screen with memoji, image cubes */
+.laptop{left:14%;top:24%;width:72%}
+.laptop-screen{background:#EAF2FA}
+.yw-screen{height:100%;display:flex;flex-direction:column;background:linear-gradient(160deg,#F4F8FC 0%,#DCEAF6 100%)}
+.yw-bar{display:flex;align-items:center;gap:5px;padding:7px 10px;border-bottom:1px solid #d9e5ef;background:#fff}
+.yw-bar i{width:7px;height:7px;border-radius:50%;background:#c9d6e2}
+.yw-bar i:nth-child(1){background:#F2A7A0}.yw-bar i:nth-child(2){background:#F3D28A}.yw-bar i:nth-child(3){background:#A9D7A6}
+.yw-bar span{margin-left:8px;font:500 9px 'Instrument Sans',sans-serif;color:#8b9bad}
+.yw-stage{position:relative;flex:1;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;container-type:size}
+.yw-word{position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);font:800 26cqw/1 'Bricolage Grotesque',sans-serif;letter-spacing:-.045em;color:#568EBE;opacity:.85;white-space:nowrap}
+.yw-memoji{position:relative;height:86%;width:auto;margin-bottom:-4%;filter:drop-shadow(0 8px 14px rgba(28,37,52,.18))}
+.cube{width:150px;min-height:0;padding:9px 9px 11px;gap:6px;justify-content:flex-start}
+.cube .cube-img{display:block;height:84px;border-radius:7px;overflow:hidden;background:#e8f0f7}
+.cube .cube-img img{width:100%;height:100%;object-fit:cover;display:block}
+.cube strong{font:800 14px/1.1 'Bricolage Grotesque',sans-serif;margin-top:2px}
+.cube small{font-size:11px}
+.cube.c1{left:-3%;top:2%;--angle:-9deg;--delay:-1s}
+.cube.c2{right:-1%;top:0;--angle:8deg;--delay:-3s}
+.cube.c3{right:-3%;bottom:-2%;--angle:7deg;--delay:-2s}
+.cube.c4{left:-3%;bottom:0;--angle:-6deg;--delay:-4s}
+.cube.c3 .cube-img img{object-position:center 30%}
+.cube.c4 .cube-img img{object-position:center 25%}
+@media(max-width:520px){.cube{width:108px;padding:6px 6px 8px}.cube .cube-img{height:56px}.cube strong{font-size:11px}.cube small{font-size:9px}.yw-bar span{font-size:7px}}
+/* restored featured styles */
+.featured{background:var(--surface);border-radius:22px;padding:28px;margin-top:20px}
+.featured .course{color:var(--muted);font-size:15px;margin:0 0 6px}
+.featured h3{font-family:"Bricolage Grotesque",sans-serif;font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.08;margin:0 0 12px}
+.feat-lede{max-width:56ch;font-size:18px;margin:0 0 24px}
+.note{color:var(--muted);font-size:13px;font-style:italic;margin:18px 0 0}
+.more-h{margin-top:64px;margin-bottom:24px}
+.featured .cases{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.featured .case h4{font-size:16px}.featured .case p{font-size:14px}
+@media(max-width:980px){.featured .cases{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.featured{padding:18px}.featured .cases{grid-template-columns:1fr}}
+</style></head>
 <body>
 <div class="wrap">
-
-  <img class="banner" src="banner.png" width="2000" height="360" alt="Yewon's Portfolio banner with a pixel art self portrait in a Landers jersey">
-
-  <nav aria-label="Main">
-    <a class="mark" href="#top">Yewon Jung</a>
-    <ul>
-      <li><a href="#results">Results</a></li>
-      <li><a href="#channel">Content</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#teaching">Teaching</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <header class="hero" id="top">
-    <p class="ko">정예원 · Emily Jung</p>
-    <h1>Yewon<span>Jung</span></h1>
-    <p class="lede">I create social content that people stop for. Then I use data to learn why it worked.</p>
-    <div class="links">
-      <a class="btn primary" href="mailto:yj693@rutgers.edu">Email me</a>
-      <a class="btn" href="https://www.linkedin.com/in/yewon-jung-emily413" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="https://www.instagram.com/yeactivity13/" target="_blank" rel="noopener">Instagram</a>
-    </div>
-  </header>
-
-  <section id="results">
-    <h2>Results I'm proud of</h2>
-    <p class="intro">Numbers from content I planned and made myself. Tap a result to see the work.</p>
-    <table class="board">
-      <thead>
-        <tr><th scope="col">What happened</th><th scope="col">Where</th><th scope="col" style="text-align:right">Result</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="what"><a class="rl" href="https://www.instagram.com/reel/C9l350Psnr6/" target="_blank" rel="noopener">Instagram Reel on the Neulbom School program</a></td><td class="where">Ministry of Education</td><td class="num">39K<small>views</small></td></tr>
-        <tr><td class="what"><a class="rl" href="#mss">Top reporter in total engagement</a></td><td class="where">Ministry of SMEs and Startups</td><td class="num">#1<small>of 30</small></td></tr>
-        <tr><td class="what"><a class="rl" href="#mss">Average views per post</a></td><td class="where">Ministry of SMEs and Startups</td><td class="num">4x<small>group average</small></td></tr>
-        <tr><td class="what"><a class="rl" href="https://youtube.com/shorts/7qe0UIIFoYg" target="_blank" rel="noopener">US grocery picks Shorts</a></td><td class="where">My YouTube</td><td class="num">27K<small>views</small></td></tr>
-        <tr><td class="what"><a class="rl" href="https://www.instagram.com/p/DMSg6_lSc-D/" target="_blank" rel="noopener">KBO cheer song carousel shared by fans</a></td><td class="where">My Instagram</td><td class="num">491<small>shares</small></td></tr>
-        <tr><td class="what"><a class="rl" href="shinhan-bank/">Faster content turnaround with templates and A/B tests</a></td><td class="where">Shinhan Bank</td><td class="num">30%<small>faster</small></td></tr>
-        <tr><td class="what">Prospective student community grown from 10 members</td><td class="where">Korea University Admissions</td><td class="num">800<small>members</small></td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section id="about">
-    <div class="about">
-      <h2>From the classroom to content</h2>
-      <div>
-        <p>I trained as an English teacher in Korea. Along the way I made content for government agencies, a bank and two universities.</p>
-        <p>Teaching taught me to explain things simply. Content work taught me what makes people care. Now I study marketing analytics at Rutgers to measure both.</p>
-        <p>I am looking for a marketing or social media internship in the US.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="channel">
-    <h2>Content highlights</h2>
-    <p class="intro">Reels, Shorts and carousels I planned, designed and edited myself.</p>
-
-    <h3 class="grp" id="baseball">Baseball and KBO</h3>
-    <p class="grp-intro">I became an SSG Landers fan through my Shinhan Bank ambassador work. Now baseball is my favorite topic to create for.</p>
-    <div class="vids">
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/reel/DNUUyf2yVAm/" target="_blank" rel="noopener"><img src="videos/nuse.webp" width="450" height="800" loading="lazy" alt="NUSE x SSG Landers fan video thumbnail"><span class="play" aria-hidden="true"></span></a>
-        <div class="stats"><span class="stat">Reposted by NUSE</span></div>
-        <h3>NUSE x SSG Landers fan video</h3>
-        <p>I turned NUSE products into baseball players for their Landers collab. NUSE reposted it, sent me a seeding kit and asked to use it in their marketing.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/reel/DNUUyf2yVAm/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/p/DMSg6_lSc-D/" target="_blank" rel="noopener"><img src="videos/kbo-cheer.webp" width="480" height="600" loading="lazy" alt="KBO cheer song all star game thumbnail"></a>
-        <div class="stats"><span class="stat">19.2K views</span><span class="stat">491 shares</span><span class="stat">34 reposts</span></div>
-        <h3>KBO cheer song all star game</h3>
-        <p>My own all star lineup of KBO cheer songs, made after the All Star Game in Daejeon.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/p/DMSg6_lSc-D/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://youtube.com/shorts/05FzaezqrRo" target="_blank" rel="noopener"><img src="videos/landers.webp" width="450" height="800" loading="lazy" alt="KBO fan trend Reel thumbnail"><span class="play" aria-hidden="true"></span></a>
-        <div class="stats"><span class="stat">20K views on YouTube</span></div>
-        <h3>KBO fan trend Reel</h3>
-        <p>A long distance fan story made with the No Roots sound trend.</p>
-        <p class="vlinks"><a href="https://youtube.com/shorts/05FzaezqrRo" target="_blank" rel="noopener">YouTube</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/reel/DNaVIeHyDTe/" target="_blank" rel="noopener"><img src="videos/baseball-10-things.webp" width="450" height="800" loading="lazy" alt="10 things I hate about baseball thumbnail"><span class="play" aria-hidden="true"></span></a>
-        <div class="stats"><span class="stat">Trend remix</span></div>
-        <h3>10 things I hate about baseball</h3>
-        <p>A pop song trend turned into ten reasons baseball fans get mad.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/reel/DNaVIeHyDTe/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-    </div>
-
-    <h3 class="grp" id="mss">Ministry of SMEs and Startups</h3>
-    <p class="grp-intro">As a Content and Marketing Reporter, I turned policy into posts people save and share. I ranked #1 of 30 reporters in total engagement.</p>
-    <div class="vids">
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/p/DRy3_6AEQtj/" target="_blank" rel="noopener"><img src="videos/mss-ai-character.webp" width="480" height="600" loading="lazy" alt="COMEUP 2025 AI characters thumbnail"></a>
-        <div class="stats"><span class="stat">AI design</span><span class="stat">Contest first round</span></div>
-        <h3>COMEUP 2025 AI characters</h3>
-        <p>I designed two characters for a global startup festival with AI. They passed the first round of the COMEUP AI character contest.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/p/DRy3_6AEQtj/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/p/DNdY8PzyXul/" target="_blank" rel="noopener"><img src="videos/mss-busan.webp" width="480" height="600" loading="lazy" alt="My coupon trip to Busan thumbnail"></a>
-        <div class="stats"><span class="stat">6.6K views</span><span class="stat">Engagement</span></div>
-        <h3>My coupon trip to Busan</h3>
-        <p>I joined the ministry&#x27;s coupon event myself. The post shows how fun it is to take part.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/p/DNdY8PzyXul/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/p/DN8ObMvkQqe/" target="_blank" rel="noopener"><img src="videos/mss-payback.webp" width="480" height="600" loading="lazy" alt="Win Win Payback guide thumbnail"></a>
-        <div class="stats"><span class="stat">4.5K views</span></div>
-        <h3>Win Win Payback guide</h3>
-        <p>Spend more by card and get money back. The program in a few simple slides.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/p/DN8ObMvkQqe/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/p/DNhTu6eS8gQ/" target="_blank" rel="noopener"><img src="videos/mss-coupon.webp" width="480" height="600" loading="lazy" alt="Coupon happiness challenge thumbnail"></a>
-        <div class="stats"><span class="stat">4K views</span></div>
-        <h3>Coupon happiness challenge</h3>
-        <p>Post a review of your coupon and get a gift. Clear steps to join the event.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/p/DNhTu6eS8gQ/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/p/DPnOBP8EZem/" target="_blank" rel="noopener"><img src="videos/mss-budget.webp" width="480" height="600" loading="lazy" alt="2026 budget in one look thumbnail"></a>
-        <div class="stats"><span class="stat">2.4K views</span></div>
-        <h3>2026 budget in one look</h3>
-        <p>What changes in the ministry&#x27;s 2026 budget for youth, startups and small business.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/p/DPnOBP8EZem/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/p/DSwVeW1ESTk/" target="_blank" rel="noopener"><img src="videos/mss-comeup.webp" width="480" height="600" loading="lazy" alt="COMEUP 2025 on site thumbnail"></a>
-        <div class="stats"><span class="stat">On site report</span></div>
-        <h3>COMEUP 2025 on site</h3>
-        <p>An on site report from a global startup festival in Seoul.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/p/DSwVeW1ESTk/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/p/DQ63AYaCTY4/" target="_blank" rel="noopener"><img src="videos/mss-festival.webp" width="480" height="600" loading="lazy" alt="Korea Grand Festival guide thumbnail"></a>
-        <div class="stats"><span class="stat">Event guide</span></div>
-        <h3>Korea Grand Festival guide</h3>
-        <p>A guide to the 2025 national shopping festival and local events.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/p/DQ63AYaCTY4/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-    </div>
-
-    <h3 class="grp" id="education">Education and test prep</h3>
-    <p class="grp-intro">Content that makes school programs and English tests easy to follow.</p>
-    <div class="vids">
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/reel/C9l350Psnr6/" target="_blank" rel="noopener"><img src="videos/moe-neulbom.webp" width="450" height="800" loading="lazy" alt="Neulbom School Reel thumbnail"><span class="play" aria-hidden="true"></span></a>
-        <div class="stats"><span class="stat">39K views</span></div>
-        <h3>Neulbom School Reel</h3>
-        <p>I explained a new after school program in plain words for the Ministry of Education.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/reel/C9l350Psnr6/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/p/DNdljtMSy02/" target="_blank" rel="noopener"><img src="videos/hackers-lc.webp" width="480" height="600" loading="lazy" alt="TOEIC LC tips for a 990 thumbnail"></a>
-        <div class="stats"><span class="stat">6.4K views</span></div>
-        <h3>TOEIC LC tips for a 990</h3>
-        <p>Listening tips that focus on key words, made as a Hackers content marketer.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/p/DNdljtMSy02/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://www.instagram.com/p/DNxZ1uk4vHl/" target="_blank" rel="noopener"><img src="videos/hackers-rc.webp" width="480" height="600" loading="lazy" alt="TOEIC RC strategy thumbnail"></a>
-        <div class="stats"><span class="stat">3.8K views</span></div>
-        <h3>TOEIC RC strategy</h3>
-        <p>A clear plan for each reading part of the TOEIC.</p>
-        <p class="vlinks"><a href="https://www.instagram.com/p/DNxZ1uk4vHl/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-    </div>
-
-    <h3 class="grp" id="lifestyle">US life and AI</h3>
-    <p class="grp-intro">Tips from my life in the US and easy ways to use AI.</p>
-    <div class="vids">
-      <article class="vid">
-        <a class="thumb" href="https://youtube.com/shorts/7qe0UIIFoYg" target="_blank" rel="noopener"><img src="videos/uscart.webp" width="450" height="800" loading="lazy" alt="US grocery picks thumbnail"><span class="play" aria-hidden="true"></span></a>
-        <div class="stats"><span class="stat">27K views on YouTube</span><span class="stat">14.4K on Instagram</span></div>
-        <h3>US grocery picks</h3>
-        <p>My must buy list from Trader Joe&#x27;s, Target and Walmart.</p>
-        <p class="vlinks"><a href="https://youtube.com/shorts/7qe0UIIFoYg" target="_blank" rel="noopener">YouTube</a> <a href="https://www.instagram.com/reel/DMHZQS1S-Iu/" target="_blank" rel="noopener">Instagram</a></p>
-      </article>
-      <article class="vid">
-        <a class="thumb" href="https://youtube.com/shorts/Nt5jhoA4Cyk" target="_blank" rel="noopener"><img src="videos/chatgpt.webp" width="450" height="800" loading="lazy" alt="ChatGPT character prompt thumbnail"><span class="play" aria-hidden="true"></span></a>
-        <div class="stats"><span class="stat">5K views on YouTube</span></div>
-        <h3>ChatGPT character prompt</h3>
-        <p>I shared a prompt that turns you into a cute game character in seconds.</p>
-        <p class="vlinks"><a href="https://youtube.com/shorts/Nt5jhoA4Cyk" target="_blank" rel="noopener">YouTube</a></p>
-      </article>
-    </div>
-
-    <p style="margin-top:32px"><a class="btn" href="https://www.instagram.com/yeactivity13/" target="_blank" rel="noopener">Visit @yeactivity13</a></p>
-  </section>
-
-  <section id="projects">
-    <h2>Featured project</h2>
-    <div class="featured">
-      <p class="course">AI in Marketing · Rutgers Business School · Fall 2026</p>
-      <h3>AI marketing strategy for OLIVE YOUNG US</h3>
-      <p class="feat-lede">I am building a full US marketing plan for OLIVE YOUNG with Claude, ChatGPT and Gemini. Eight parts are complete so far.</p>
-      <div class="cases">
-        <a class="case" href="olive-young/01-brand-foundation/">
-          <div class="cover"><img src="olive-young/01-brand-foundation/cover.webp" alt="Brand foundation cover slide" loading="lazy"></div>
-          <p class="part">Part 01</p>
-          <h4>Brand foundation</h4>
-          <p>Five US rivals and one open question. Sephora is both a launch partner and a possible rival.</p>
-          <span class="cta">Open case study</span>
-        </a>
-        <a class="case" href="olive-young/02-positioning/">
-          <div class="cover"><img src="olive-young/02-positioning/cover.webp" alt="Positioning cover slide" loading="lazy"></div>
-          <p class="part">Part 02</p>
-          <h4>Positioning</h4>
-          <p>Own K-beauty discovery beyond the mainstream. No rival yet pairs deep K-beauty focus with broad US reach.</p>
-          <span class="cta">Open case study</span>
-        </a>
-        <a class="case" href="olive-young/03-content-package/">
-          <div class="cover"><img src="olive-young/03-content-package/cover.webp" alt="Content package cover slide" loading="lazy"></div>
-          <p class="part">Part 03</p>
-          <h4>Content package</h4>
-          <p>One long form article rebuilt into eight channel native pieces from Korea&#x27;s search trends.</p>
-          <span class="cta">Open case study</span>
-        </a>
-        <a class="case" href="olive-young/04-art-direction/">
-          <div class="cover"><img src="olive-young/04-art-direction/cover.webp" alt="Art direction and design system cover slide" loading="lazy"></div>
-          <p class="part">Part 04</p>
-          <h4>Art direction and design system</h4>
-          <p>A visual brief and design system. I used it to make two videos and one image with generative AI.</p>
-          <span class="cta">Open case study</span>
-        </a>
-        <a class="case" href="olive-young/05-lifecycle-plan/">
-          <div class="cover"><img src="olive-young/05-lifecycle-plan/cover.webp" alt="Lifecycle plan cover slide" loading="lazy"></div>
-          <p class="part">Part 05</p>
-          <h4>Lifecycle plan</h4>
-          <p>RFM segmentation of 2,000 synthetic customers. One triggered email for each lifecycle stage.</p>
-          <span class="cta">Open case study</span>
-        </a>
-        <a class="case" href="olive-young/06-paid-media/">
-          <div class="cover"><img src="olive-young/06-paid-media/cover.webp" alt="Paid media plan cover slide" loading="lazy"></div>
-          <p class="part">Part 06</p>
-          <h4>Paid media plan</h4>
-          <p>A $250,000 holiday plan with nine AI ad mockups for Instagram, TikTok and YouTube.</p>
-          <span class="cta">Open case study</span>
-        </a>
-        <a class="case" href="olive-young/07-performance/">
-          <div class="cover"><img src="olive-young/07-performance/cover.webp" alt="Performance and measurement cover slide" loading="lazy"></div>
-          <p class="part">Part 07</p>
-          <h4>Performance and measurement</h4>
-          <p>Triggered emails were 1.4% of volume. They drove 21 to 29% of revenue.</p>
-          <span class="cta">Open case study</span>
-        </a>
-        <a class="case" href="olive-young/08-support-chatbot/">
-          <div class="cover"><img src="olive-young/08-support-chatbot/cover.webp" alt="Customer support chatbot cover slide" loading="lazy"></div>
-          <p class="part">Part 08</p>
-          <h4>Customer support chatbot</h4>
-          <p>A bot that knows when to stop. AI answers policy questions and people make the judgment calls.</p>
-          <span class="cta">Open case study</span>
-        </a>
-      </div>
-      <p class="note">Student class project. Not affiliated with or endorsed by OLIVE YOUNG.</p>
-    </div>
-
-    <h2 class="more-h">Campaign work</h2>
-    <div class="cases">
-        <a class="case" href="shinhan-bank/">
-          <div class="cover"><img src="shinhan-bank/cover.webp" alt="Shinhan Bank ambassador portfolio slides" loading="lazy"></div>
-          <p class="part">Shinhan Bank · 2024</p>
-          <h4>Student Ambassador campaigns</h4>
-          <p>Product, ESG, financial education and KBO sports marketing content for one of Korea's largest banks.</p>
-          <span class="cta">Open case study</span>
-        </a>
-    </div>
-
-    <h2 class="more-h">More academic projects</h2>
-    <div class="projects">
-      <article class="project">
-        <p class="course">Customer Journey Analytics · Fall 2026</p>
-        <h3>Kate Barton x SpeedShotX personas and journey maps</h3>
-        <ul>
-          <li>Our team built four personas for an AI shopping experience at New York Fashion Week.</li>
-          <li>We mapped each persona across a six stage journey. The theme was from doubt to decision.</li>
-          <li>I created "The Front Row Scanner" persona. I also designed the full deck with AI illustrations.</li>
-        </ul>
-      </article>
-      <article class="project">
-        <p class="course">Customer Journey Analytics · Fall 2026</p>
-        <h3>Wear the Golden Hour for the Google Merch Shop</h3>
-        <ul>
-          <li>One product, one headline and one action.</li>
-          <li>A TV pause ad leads viewers to a mobile landing page for a $24 limited edition cap.</li>
-          <li>I tagged every step from ad impression to purchase with GA4 events and UTM parameters.</li>
-        </ul>
-      </article>
-      <article class="project">
-        <p class="course">Marketing Management · Oct 2026</p>
-        <h3>OpenAI case analysis</h3>
-        <ul>
-          <li>Compared OpenAI's product lines and pricing with key competitors.</li>
-          <li>Pulled together the team's problem definition and action plan.</li>
-          <li>Presented the work and answered faculty questions.</li>
-        </ul>
-      </article>
-    </div>
-    <p class="note">Student class projects. Not affiliated with Google, Kate Barton or SpeedShotX.</p>
-  </section>
-
-  <section id="experience">
-    <h2>Experience</h2>
-    <p class="intro">Most recent first.</p>
-    <ol class="roles">
-      <li class="role">
-        <div class="when">Oct 2026 to present</div>
-        <div>
-          <h3>Student Ambassador</h3>
-          <p class="org">Rutgers Business School Marketing Summit 2026</p>
-          <ul><li>Support guest speakers and manage event communications before the summit.</li></ul>
-        </div>
-      </li>
-      <li class="role">
-        <div class="when">2026 to present</div>
-        <div>
-          <h3>TOEFL High Scorer Mentor</h3>
-          <p class="org">GoHackers by Hackers Education Group</p>
-          <ul>
-            <li>Named Outstanding Mentor of the Month in October 2026.</li>
-            <li>Write columns and blog posts on TOEFL strategy for students planning to study in the US.</li>
-          </ul>
-        </div>
-      </li>
-      <li class="role">
-        <div class="when">Mar 2024 to Jan 2026</div>
-        <div>
-          <h3>Student Ambassador</h3>
-          <p class="org">National University Development Project at Korea National University of Education (Ministry of Education and National Research Foundation of Korea)</p>
-          <ul>
-            <li>Made newsletters and carousels to promote the program.</li>
-            <li>Wrote promotional blog posts and designed event posters.</li>
-          </ul>
-        </div>
-      </li>
-      <li class="role">
-        <div class="when">Mar 2025 to Dec 2025</div>
-        <div>
-          <h3>Content and Marketing Reporter</h3>
-          <p class="org">Ministry of SMEs and Startups, Republic of Korea</p>
-          <ul>
-            <li>Ranked #1 of 30 reporters in total engagement.</li>
-            <li>Averaged 4,000+ views per post. That is about 4x the group average.</li>
-            <li>Tested Reels and carousels against audience response. Used generative AI to explain policy in plain language.</li>
-            <li>My AI character design passed the first round of the COMEUP 2025 AI character contest.</li>
-          </ul>
-        </div>
-      </li>
-      <li class="role">
-        <div class="when">Jul 2025 to Sep 2025</div>
-        <div>
-          <h3>Content Marketer</h3>
-          <p class="org">Hackers Education Group</p>
-          <ul><li>Named Top Performer with 1,300+ average video views. Top posts passed 6,000 views.</li></ul>
-        </div>
-      </li>
-      <li class="role">
-        <div class="when">May 2024 to Dec 2024</div>
-        <div>
-          <h3>Citizen Advisor and Youth Statistics Mentor</h3>
-          <p class="org">Statistics Korea (now Ministry of Data and Statistics)</p>
-          <ul>
-            <li>Received two Commissioner's Awards. One for advisory work and one for mentoring.</li>
-            <li>Made carousel content on best practices in government innovation.</li>
-            <li>Raised student satisfaction from 95% to 99% as a mentor.</li>
-          </ul>
-        </div>
-      </li>
-      <li class="role">
-        <div class="when">Feb 2024 to Dec 2024</div>
-        <div>
-          <h3>Content Creator</h3>
-          <p class="org">Ministry of Education, Republic of Korea</p>
-          <ul><li>Turned education policy into blog articles and short videos. One Instagram Reel reached 39,000 views.</li></ul>
-        </div>
-      </li>
-      <li class="role">
-        <div class="when">Feb 2024 to Aug 2024</div>
-        <div>
-          <h3>Student Ambassador, Content and Promotion</h3>
-          <p class="org">Shinhan Bank</p>
-          <ul>
-            <li>Planned and designed content for product promotion, ESG, financial education and sports marketing.</li>
-            <li>Promoted the SOL Travel Card and the 20th anniversary of the ambassador program.</li>
-            <li>Created an ESG environmental campaign. Also made senior financial education on phishing prevention.</li>
-            <li>Led content for the KBO partnership with the SSG Landers. This included a limited edition collection and a ballpark photo event.</li>
-            <li>Made financial trivia Reels, collab Reels and an original web drama.</li>
-            <li>Cut content turnaround time by 30% with thumbnail templates and A/B tests.</li>
-            <li>Managed the team calendar and tracked expenses in Excel.</li>
-          </ul>
-          <p style="margin:10px 0 0"><a href="shinhan-bank/">See the campaign portfolio</a></p>
-        </div>
-      </li>
-      <li class="role">
-        <div class="when">Jul 2022 to Feb 2024</div>
-        <div>
-          <h3>Social Media Strategist and Manager (Part time)</h3>
-          <p class="org">Korea University Admissions Office</p>
-          <ul>
-            <li>Grew a prospective student community from 10 to 800 members in two weeks. Views grew from 20 to 14,400.</li>
-            <li>Analyzed reach, CTR and retention to redefine each channel's role.</li>
-          </ul>
-        </div>
-      </li>
-    </ol>
-  </section>
-
-  <section id="teaching">
-    <h2>Teaching and mentoring</h2>
-    <p class="intro">Where I learned to explain ideas clearly. I still use this every time I make content.</p>
-    <ol class="roles">
-      <li class="role">
-        <div class="when">Jan 2025 to Feb 2025</div>
-        <div>
-          <h3>Student Teacher</h3>
-          <p class="org">Cedar High School, Utah, USA</p>
-          <ul><li>Taught on site for four weeks in an American high school.</li></ul>
-        </div>
-      </li>
-      <li class="role">
-        <div class="when">Oct 2024 to Nov 2024</div>
-        <div>
-          <h3>Student Teacher</h3>
-          <p class="org">Chungbuk Foreign Language High School, South Korea</p>
-          <ul><li>Taught English on site for four weeks.</li></ul>
-        </div>
-      </li>
-      <li class="role">
-        <div class="when">Summer 2022 to Summer 2024</div>
-        <div>
-          <h3>English Camp Mentor</h3>
-          <p class="org">HAFS English Camp by HUFS Language Laboratory Corp.</p>
-          <ul>
-            <li>Worked five seasons on site. Each season ran 20 days.</li>
-            <li>Managed the shared drive for essay class materials.</li>
-            <li>Tracked mentor schedules and deadlines. Reported essay progress to the camp team.</li>
-          </ul>
-        </div>
-      </li>
-    </ol>
-  </section>
-
-  <section id="education">
-    <div class="cols">
-      <div>
-        <h2>Education</h2>
-        <h3>M.S. in Marketing Analytics and Insights</h3>
-        <p class="sub">Rutgers Business School · Expected May 2027</p>
-        <ul class="tags">
-          <li>Marketing Research</li>
-          <li>Customer Journey Analytics</li>
-          <li>Business Intelligence Analytics (R)</li>
-          <li>AI in Marketing</li>
-        </ul>
-        <h3>B.A. in English Education</h3>
-        <p class="sub">Korea National University of Education · Feb 2026<br>Transferred from Korea University after two years of Public Administration</p>
-        <h3>Awards</h3>
-        <p class="sub">Two Statistics Korea Commissioner's Awards (2024)<br>Korea University Top Talent Award and Merit Scholarship (2023)</p>
-      </div>
-      <div>
-        <h2>Skills</h2>
-        <h3>Analytics</h3>
-        <ul class="tags">
-          <li>Google Analytics 4</li>
-          <li>Excel</li>
-          <li>R and Python (basic)</li>
-          <li>A/B Testing</li>
-          <li>Customer Journey Mapping</li>
-          <li>Persona Development</li>
-        </ul>
-        <h3>Content and AI</h3>
-        <ul class="tags">
-          <li>Instagram Insights</li>
-          <li>Canva</li>
-          <li>Photoshop</li>
-          <li>CapCut</li>
-          <li>ChatGPT</li>
-          <li>Claude</li>
-          <li>Gemini</li>
-          <li>Suno AI</li>
-        </ul>
-        <h3>Certifications</h3>
-        <p class="sub">Google Analytics<br>ADsP Data Analytics Certificate (Korea Data Agency)<br>Secondary Teacher Certificate in English</p>
-        <h3>Languages</h3>
-        <p class="sub">Korean (native)<br>English (fluent)<br>French (basic)</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact" id="contact">
-    <h2>Let's talk</h2>
-    <p class="intro">I'm based in Fort Lee, New Jersey. I'm open to marketing and social media internships.</p>
-    <a class="mail" href="mailto:yj693@rutgers.edu">yj693@rutgers.edu</a>
-  </section>
-
-  <footer>© 2026 Yewon (Emily) Jung</footer>
+<nav aria-label="Main">
+<a class="mark" href="#top">Yewon Jung</a>
+<ul><li><a href="#projects">Work</a></li><li><a href="#results">Impact</a></li><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a download="Yewon_Emily_Jung_Resume.pdf" href="resume.pdf">Resume</a></li><li><a href="#contact">Contact</a></li></ul>
+</nav>
+<header class="hero" id="top"><div class="hero-copy"><p class="ko">Hi, I'm Yewon (Emily) Jung.</p><h1>Creative in thinking.<span>Analytical in approach.</span></h1><p class="lede">I connect consumer insights, creative thinking, and data to make smarter marketing decisions.</p><p class="hero-sub">Marketing Strategy · Analytics · Consumer Insights · Creative</p><div class="links"><a class="btn primary" href="#projects">Explore my work ↗</a><a class="btn" download="Yewon_Emily_Jung_Resume.pdf" href="resume.pdf">Download resume ↓</a><a class="btn" href="https://www.linkedin.com/in/yewon-jung-emily413" rel="noopener" target="_blank">LinkedIn</a></div></div><div aria-label="Laptop with my memoji and floating project previews" class="hero-visual"><div class="visual-glow"></div>
+<div aria-hidden="true" class="laptop"><div class="laptop-screen"><div class="yw-screen">
+<div class="yw-bar"><i></i><i></i><i></i><span>yewon-emily-jung.github.io</span></div>
+<div class="yw-stage"><span class="yw-word">YEWON</span><img class="yw-memoji" src="assets/memoji-heart.webp" alt="" width="420" height="420"></div>
+</div></div><div class="laptop-base"></div></div>
+<a class="cube c1" href="olive-young/04-art-direction/"><span class="cube-img"><img src="videos/oy-inside.webp" alt="OLIVE YOUNG AI video still" width="640" height="360"></span><strong>OLIVE YOUNG</strong><small>AI marketing strategy</small></a>
+<a class="cube c2" href="customer-journey/kate-barton/"><span class="cube-img"><img src="customer-journey/kate-barton/cover.webp" alt="Kate Barton personas deck cover" width="1200" height="675"></span><strong>KATE BARTON</strong><small>Customer journey</small></a>
+<a class="cube c3" href="https://www.instagram.com/reel/DNUUyf2yVAm/" target="_blank" rel="noopener"><span class="cube-img"><img src="videos/nuse.webp" alt="NUSE x SSG Landers video thumbnail" width="450" height="800"></span><strong>NUSE x LANDERS</strong><small>Creative content</small></a>
+<a class="cube c4" href="https://www.instagram.com/p/DRy3_6AEQtj/" target="_blank" rel="noopener"><span class="cube-img"><img src="videos/mss-ai-character.webp" alt="COMEUP AI characters thumbnail" width="480" height="600"></span><strong>COMEUP AI</strong><small>AI character design</small></a>
+</div></header><section id="projects"><p class="section-kicker">Selected work / 01</p><p class="intro">A mix of professional experience and clearly labeled academic projects, spanning strategy, analytics, creative execution, and customer experience.</p><div class="work-overview"><a href="olive-young/01-brand-foundation/">Strategy &amp; Insights<small>Positioning and planning</small></a><a href="olive-young/07-performance/">Analytics &amp; Research<small>Measurement and interpretation</small></a><a href="#channel">Creative &amp; Campaigns<small>Real-world content and outcomes</small></a><a href="customer-journey/kate-barton/">Customer Experience<small>Journey mapping and lifecycle</small></a></div>
+<h2>Featured project</h2>
+<div class="featured">
+<p class="course">AI in Marketing · Rutgers Business School · Fall 2026</p>
+<h3>AI marketing strategy for OLIVE YOUNG US</h3>
+<p class="feat-lede">I am building a full US marketing plan for OLIVE YOUNG with Claude, ChatGPT and Gemini. Eight parts are complete so far.</p>
+<div class="cases">
+<a class="case" href="olive-young/01-brand-foundation/">
+<div class="cover"><img alt="Brand foundation cover slide" loading="lazy" src="olive-young/01-brand-foundation/cover.webp"/></div>
+<p class="part">Part 01</p>
+<h4>Brand foundation</h4>
+<p>Five US rivals and one open question. Sephora is both a launch partner and a possible rival.</p>
+<span class="cta">Open case study</span>
+</a>
+<a class="case" href="olive-young/02-positioning/">
+<div class="cover"><img alt="Positioning cover slide" loading="lazy" src="olive-young/02-positioning/cover.webp"/></div>
+<p class="part">Part 02</p>
+<h4>Positioning</h4>
+<p>Own K-beauty discovery beyond the mainstream. No rival yet pairs deep K-beauty focus with broad US reach.</p>
+<span class="cta">Open case study</span>
+</a>
+<a class="case" href="olive-young/03-content-package/">
+<div class="cover"><img alt="Content package cover slide" loading="lazy" src="olive-young/03-content-package/cover.webp"/></div>
+<p class="part">Part 03</p>
+<h4>Content package</h4>
+<p>One long form article rebuilt into eight channel native pieces from Korea's search trends.</p>
+<span class="cta">Open case study</span>
+</a>
+<a class="case" href="olive-young/04-art-direction/">
+<div class="cover"><img alt="Art direction and design system cover slide" loading="lazy" src="olive-young/04-art-direction/cover.webp"/></div>
+<p class="part">Part 04</p>
+<h4>Art direction and design system</h4>
+<p>A visual brief and design system. I used it to make two videos and one image with generative AI.</p>
+<span class="cta">Open case study</span>
+</a>
+<a class="case" href="olive-young/05-lifecycle-plan/">
+<div class="cover"><img alt="Lifecycle plan cover slide" loading="lazy" src="olive-young/05-lifecycle-plan/cover.webp"/></div>
+<p class="part">Part 05</p>
+<h4>Lifecycle plan</h4>
+<p>RFM segmentation of 2,000 synthetic customers. One triggered email for each lifecycle stage.</p>
+<span class="cta">Open case study</span>
+</a>
+<a class="case" href="olive-young/06-paid-media/">
+<div class="cover"><img alt="Paid media plan cover slide" loading="lazy" src="olive-young/06-paid-media/cover.webp"/></div>
+<p class="part">Part 06</p>
+<h4>Paid media plan</h4>
+<p>A $250,000 holiday plan with nine AI ad mockups for Instagram, TikTok and YouTube.</p>
+<span class="cta">Open case study</span>
+</a>
+<a class="case" href="olive-young/07-performance/">
+<div class="cover"><img alt="Performance and measurement cover slide" loading="lazy" src="olive-young/07-performance/cover.webp"/></div>
+<p class="part">Part 07</p>
+<h4>Performance and measurement</h4>
+<p>Triggered emails were 1.4% of volume. They drove 21 to 29% of revenue.</p>
+<span class="cta">Open case study</span>
+</a>
+<a class="case" href="olive-young/08-support-chatbot/">
+<div class="cover"><img alt="Customer support chatbot cover slide" loading="lazy" src="olive-young/08-support-chatbot/cover.webp"/></div>
+<p class="part">Part 08</p>
+<h4>Customer support chatbot</h4>
+<p>A bot that knows when to stop. AI answers policy questions and people make the judgment calls.</p>
+<span class="cta">Open case study</span>
+</a>
+</div>
+<p class="note">Student class project. Not affiliated with or endorsed by OLIVE YOUNG.</p>
+</div>
+<h2 class="more-h">Campaign work</h2>
+<div class="cases">
+<a class="case" href="shinhan-bank/">
+<div class="cover"><img alt="Shinhan Bank ambassador portfolio slides" loading="lazy" src="shinhan-bank/cover.webp"/></div>
+<p class="part">Shinhan Bank · 2024</p>
+<h4>Student Ambassador campaigns</h4>
+<p>Product, ESG, financial education and KBO sports marketing content for one of Korea's largest banks.</p>
+<span class="cta">Open case study</span>
+</a>
+</div>
+<h2 class="more-h" id="academic">More academic projects</h2>
+<div class="cases">
+<a class="case" href="customer-journey/kate-barton/">
+<div class="cover"><img alt="From Doubt to Decision deck cover" loading="lazy" src="customer-journey/kate-barton/cover.webp"/></div>
+<p class="part">Customer Journey Analytics · Fall 2026</p>
+<h4>Kate Barton x SpeedShotX personas and journey maps</h4>
+<p>Four personas for an AI shopping experience at New York Fashion Week. I created "The Front Row Scanner" persona and designed the full deck.</p>
+<span class="cta">Open case study</span>
+</a>
+<a class="case" href="customer-journey/google-merch/">
+<div class="cover"><img alt="Wear the Golden Hour campaign cover" loading="lazy" src="customer-journey/google-merch/cover.webp"/></div>
+<p class="part">Customer Journey Analytics · Fall 2026</p>
+<h4>Wear the Golden Hour for the Google Merch Shop</h4>
+<p>A TV pause ad leads to a mobile landing page for a $24 cap. I tagged every step with GA4 events and UTM parameters.</p>
+<span class="cta">Open case study</span>
+</a>
+</div>
+<div class="projects" style="margin-top:20px">
+<article class="project">
+<p class="course">Marketing Management · Oct 2026</p>
+<h3>OpenAI case analysis</h3>
+<ul>
+<li>Compared OpenAI's product lines and pricing with key competitors.</li>
+<li>Pulled together the team's problem definition and action plan.</li>
+<li>Presented the work and answered faculty questions.</li>
+</ul>
+</article>
+</div>
+<p class="note">Student class projects. Not affiliated with Google, Kate Barton or SpeedShotX.</p>
+</section>
+<section id="results">
+<h2>Results I'm proud of</h2>
+<p class="intro">Numbers from content I planned and made myself. Tap a result to see the work.</p>
+<table class="board">
+<thead>
+<tr><th scope="col">What happened</th><th scope="col">Where</th><th scope="col" style="text-align:right">Result</th></tr>
+</thead>
+<tbody>
+<tr><td class="what"><a class="rl" href="https://www.instagram.com/reel/C9l350Psnr6/" rel="noopener" target="_blank">Instagram Reel on the Neulbom School program</a></td><td class="where">Ministry of Education</td><td class="num">39K<small>views</small></td></tr>
+<tr><td class="what"><a class="rl" href="#mss">Top reporter in total engagement</a></td><td class="where">Ministry of SMEs and Startups</td><td class="num">#1<small>of 30</small></td></tr>
+<tr><td class="what"><a class="rl" href="#mss">Average views per post</a></td><td class="where">Ministry of SMEs and Startups</td><td class="num">4x<small>group average</small></td></tr>
+<tr><td class="what"><a class="rl" href="https://youtube.com/shorts/7qe0UIIFoYg" rel="noopener" target="_blank">US grocery picks Shorts</a></td><td class="where">My YouTube</td><td class="num">27K<small>views</small></td></tr>
+<tr><td class="what"><a class="rl" href="https://www.instagram.com/p/DMSg6_lSc-D/" rel="noopener" target="_blank">KBO cheer song carousel shared by fans</a></td><td class="where">My Instagram</td><td class="num">491<small>shares</small></td></tr>
+<tr><td class="what"><a class="rl" href="shinhan-bank/">Faster content turnaround with templates and A/B tests</a></td><td class="where">Shinhan Bank</td><td class="num">30%<small>faster</small></td></tr>
+<tr><td class="what">Prospective student community grown from 10 members</td><td class="where">Korea University Admissions</td><td class="num">800<small>members</small></td></tr>
+</tbody>
+</table>
+</section><section id="channel">
+<h2>Creative &amp; content highlights</h2>
+<p class="intro">Reels, Shorts and carousels I planned, designed and edited myself.</p>
+<h3 class="grp" id="baseball">Baseball and KBO</h3>
+<p class="grp-intro">I became an SSG Landers fan through my Shinhan Bank ambassador work. Now baseball is my favorite topic to create for.</p>
+<div class="vids">
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/reel/DNUUyf2yVAm/" rel="noopener" target="_blank"><img alt="NUSE x SSG Landers fan video thumbnail" height="800" loading="lazy" src="videos/nuse.webp" width="450"/><span aria-hidden="true" class="play"></span></a>
+<div class="stats"><span class="stat">Reposted by NUSE</span></div>
+<h3>NUSE x SSG Landers fan video</h3>
+<p>I turned NUSE products into baseball players for their Landers collab. NUSE reposted it, sent me a seeding kit and asked to use it in their marketing.</p>
+<p class="vlinks"><a href="https://www.instagram.com/reel/DNUUyf2yVAm/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/p/DMSg6_lSc-D/" rel="noopener" target="_blank"><img alt="KBO cheer song all star game thumbnail" height="600" loading="lazy" src="videos/kbo-cheer.webp" width="480"/></a>
+<div class="stats"><span class="stat">19.2K views</span><span class="stat">491 shares</span><span class="stat">34 reposts</span></div>
+<h3>KBO cheer song all star game</h3>
+<p>My own all star lineup of KBO cheer songs, made after the All Star Game in Daejeon.</p>
+<p class="vlinks"><a href="https://www.instagram.com/p/DMSg6_lSc-D/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://youtube.com/shorts/05FzaezqrRo" rel="noopener" target="_blank"><img alt="KBO fan trend Reel thumbnail" height="800" loading="lazy" src="videos/landers.webp" width="450"/><span aria-hidden="true" class="play"></span></a>
+<div class="stats"><span class="stat">20K views on YouTube</span></div>
+<h3>KBO fan trend Reel</h3>
+<p>A long distance fan story made with the No Roots sound trend.</p>
+<p class="vlinks"><a href="https://youtube.com/shorts/05FzaezqrRo" rel="noopener" target="_blank">YouTube</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/reel/DNaVIeHyDTe/" rel="noopener" target="_blank"><img alt="10 things I hate about baseball thumbnail" height="800" loading="lazy" src="videos/baseball-10-things.webp" width="450"/><span aria-hidden="true" class="play"></span></a>
+<div class="stats"><span class="stat">Trend remix</span></div>
+<h3>10 things I hate about baseball</h3>
+<p>A pop song trend turned into ten reasons baseball fans get mad.</p>
+<p class="vlinks"><a href="https://www.instagram.com/reel/DNaVIeHyDTe/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+</div>
+<h3 class="grp" id="mss">Ministry of SMEs and Startups</h3>
+<p class="grp-intro">As a Content and Marketing Reporter, I turned policy into posts people save and share. I ranked #1 of 30 reporters in total engagement.</p>
+<div class="vids">
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/p/DRy3_6AEQtj/" rel="noopener" target="_blank"><img alt="COMEUP 2025 AI characters thumbnail" height="600" loading="lazy" src="videos/mss-ai-character.webp" width="480"/></a>
+<div class="stats"><span class="stat">AI design</span><span class="stat">Contest first round</span></div>
+<h3>COMEUP 2025 AI characters</h3>
+<p>I designed two characters for a global startup festival with AI. They passed the first round of the COMEUP AI character contest.</p>
+<p class="vlinks"><a href="https://www.instagram.com/p/DRy3_6AEQtj/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/p/DNdY8PzyXul/" rel="noopener" target="_blank"><img alt="My coupon trip to Busan thumbnail" height="600" loading="lazy" src="videos/mss-busan.webp" width="480"/></a>
+<div class="stats"><span class="stat">6.6K views</span><span class="stat">Engagement</span></div>
+<h3>My coupon trip to Busan</h3>
+<p>I joined the ministry's coupon event myself. The post shows how fun it is to take part.</p>
+<p class="vlinks"><a href="https://www.instagram.com/p/DNdY8PzyXul/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/p/DN8ObMvkQqe/" rel="noopener" target="_blank"><img alt="Win Win Payback guide thumbnail" height="600" loading="lazy" src="videos/mss-payback.webp" width="480"/></a>
+<div class="stats"><span class="stat">4.5K views</span></div>
+<h3>Win Win Payback guide</h3>
+<p>Spend more by card and get money back. The program in a few simple slides.</p>
+<p class="vlinks"><a href="https://www.instagram.com/p/DN8ObMvkQqe/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/p/DNhTu6eS8gQ/" rel="noopener" target="_blank"><img alt="Coupon happiness challenge thumbnail" height="600" loading="lazy" src="videos/mss-coupon.webp" width="480"/></a>
+<div class="stats"><span class="stat">4K views</span></div>
+<h3>Coupon happiness challenge</h3>
+<p>Post a review of your coupon and get a gift. Clear steps to join the event.</p>
+<p class="vlinks"><a href="https://www.instagram.com/p/DNhTu6eS8gQ/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/p/DPnOBP8EZem/" rel="noopener" target="_blank"><img alt="2026 budget in one look thumbnail" height="600" loading="lazy" src="videos/mss-budget.webp" width="480"/></a>
+<div class="stats"><span class="stat">2.4K views</span></div>
+<h3>2026 budget in one look</h3>
+<p>What changes in the ministry's 2026 budget for youth, startups and small business.</p>
+<p class="vlinks"><a href="https://www.instagram.com/p/DPnOBP8EZem/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/p/DSwVeW1ESTk/" rel="noopener" target="_blank"><img alt="COMEUP 2025 on site thumbnail" height="600" loading="lazy" src="videos/mss-comeup.webp" width="480"/></a>
+<div class="stats"><span class="stat">On site report</span></div>
+<h3>COMEUP 2025 on site</h3>
+<p>An on site report from a global startup festival in Seoul.</p>
+<p class="vlinks"><a href="https://www.instagram.com/p/DSwVeW1ESTk/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/p/DQ63AYaCTY4/" rel="noopener" target="_blank"><img alt="Korea Grand Festival guide thumbnail" height="600" loading="lazy" src="videos/mss-festival.webp" width="480"/></a>
+<div class="stats"><span class="stat">Event guide</span></div>
+<h3>Korea Grand Festival guide</h3>
+<p>A guide to the 2025 national shopping festival and local events.</p>
+<p class="vlinks"><a href="https://www.instagram.com/p/DQ63AYaCTY4/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+</div>
+<h3 class="grp" id="education-content">Education and test prep</h3>
+<p class="grp-intro">Content and tools that make school programs and English tests easy to follow.</p>
+<div class="vids">
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/reel/C9l350Psnr6/" rel="noopener" target="_blank"><img alt="Neulbom School Reel thumbnail" height="800" loading="lazy" src="videos/moe-neulbom.webp" width="450"/><span aria-hidden="true" class="play"></span></a>
+<div class="stats"><span class="stat">39K views</span></div>
+<h3>Neulbom School Reel</h3>
+<p>I explained a new after school program in plain words for the Ministry of Education.</p>
+<p class="vlinks"><a href="https://www.instagram.com/reel/C9l350Psnr6/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/p/DNdljtMSy02/" rel="noopener" target="_blank"><img alt="TOEIC LC tips for a 990 thumbnail" height="600" loading="lazy" src="videos/hackers-lc.webp" width="480"/></a>
+<div class="stats"><span class="stat">6.4K views</span></div>
+<h3>TOEIC LC tips for a 990</h3>
+<p>Listening tips that focus on key words, made as a Hackers content marketer.</p>
+<p class="vlinks"><a href="https://www.instagram.com/p/DNdljtMSy02/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://www.instagram.com/p/DNxZ1uk4vHl/" rel="noopener" target="_blank"><img alt="TOEIC RC strategy thumbnail" height="600" loading="lazy" src="videos/hackers-rc.webp" width="480"/></a>
+<div class="stats"><span class="stat">3.8K views</span></div>
+<h3>TOEIC RC strategy</h3>
+<p>A clear plan for each reading part of the TOEIC.</p>
+<p class="vlinks"><a href="https://www.instagram.com/p/DNxZ1uk4vHl/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="toefl-practice/"><img alt="TOEFL Build a Sentence practice tool screenshot" height="600" loading="lazy" src="videos/toefl-tool.webp" width="480"/></a>
+<div class="stats"><span class="stat">Interactive tool</span><span class="stat">Built with AI</span></div>
+<h3>TOEFL Build a Sentence practice</h3>
+<p>A practice tool I built for my GoHackers mentor column. Readers drag words into place and get instant feedback.</p>
+<p class="vlinks"><a href="toefl-practice/">Try it</a></p>
+</article>
+</div>
+<h3 class="grp" id="lifestyle">US life and AI</h3>
+<p class="grp-intro">Tips from my life in the US and easy ways to use AI.</p>
+<div class="vids">
+<article class="vid">
+<a class="thumb" href="https://youtube.com/shorts/7qe0UIIFoYg" rel="noopener" target="_blank"><img alt="US grocery picks thumbnail" height="800" loading="lazy" src="videos/uscart.webp" width="450"/><span aria-hidden="true" class="play"></span></a>
+<div class="stats"><span class="stat">27K views on YouTube</span><span class="stat">14.4K on Instagram</span></div>
+<h3>US grocery picks</h3>
+<p>My must buy list from Trader Joe's, Target and Walmart.</p>
+<p class="vlinks"><a href="https://youtube.com/shorts/7qe0UIIFoYg" rel="noopener" target="_blank">YouTube</a> <a href="https://www.instagram.com/reel/DMHZQS1S-Iu/" rel="noopener" target="_blank">Instagram</a></p>
+</article>
+<article class="vid">
+<a class="thumb" href="https://youtube.com/shorts/Nt5jhoA4Cyk" rel="noopener" target="_blank"><img alt="ChatGPT character prompt thumbnail" height="800" loading="lazy" src="videos/chatgpt.webp" width="450"/><span aria-hidden="true" class="play"></span></a>
+<div class="stats"><span class="stat">5K views on YouTube</span></div>
+<h3>ChatGPT character prompt</h3>
+<p>I shared a prompt that turns you into a cute game character in seconds.</p>
+<p class="vlinks"><a href="https://youtube.com/shorts/Nt5jhoA4Cyk" rel="noopener" target="_blank">YouTube</a></p>
+</article>
+</div>
+<p style="margin-top:32px"><a class="btn" href="https://www.instagram.com/yeactivity13/" rel="noopener" target="_blank">Visit @yeactivity13</a></p>
+</section>
+<section id="about">
+<div class="about">
+<h2>A little about me</h2>
+<div>
+<p>I trained as an English teacher in Korea. Along the way I made content for government agencies, a bank and two universities.</p>
+<p>Teaching taught me to explain things simply. Content work taught me what makes people care. Now I study marketing analytics at Rutgers to measure both.</p>
+<p>I am interested in opportunities across marketing strategy, analytics, consumer insights, and creative marketing.</p>
+</div>
+</div>
+</section>
+<section id="experience">
+<h2>Experience</h2>
+<p class="intro">Most recent first.</p>
+<ol class="roles">
+<li class="role">
+<div class="when">Oct 2026 to present</div>
+<div>
+<h3>Student Ambassador</h3>
+<p class="org">Rutgers Business School Marketing Summit 2026</p>
+<ul><li>Support guest speakers and manage event communications before the summit.</li></ul>
+</div>
+</li>
+<li class="role">
+<div class="when">2026 to present</div>
+<div>
+<h3>TOEFL High Scorer Mentor</h3>
+<p class="org">GoHackers by Hackers Education Group</p>
+<ul>
+<li>Named Outstanding Mentor of the Month in October 2026.</li>
+<li>Write columns and blog posts on TOEFL strategy for students planning to study in the US.</li>
+<li>Built an interactive <a href="toefl-practice/">TOEFL Build a Sentence practice tool</a> with AI for my column readers.</li>
+</ul>
+</div>
+</li>
+<li class="role">
+<div class="when">Mar 2024 to Jan 2026</div>
+<div>
+<h3>Student Ambassador</h3>
+<p class="org">National University Development Project at Korea National University of Education (Ministry of Education and National Research Foundation of Korea)</p>
+<ul>
+<li>Made newsletters and carousels to promote the program.</li>
+<li>Wrote promotional blog posts and designed event posters.</li>
+</ul>
+</div>
+</li>
+<li class="role">
+<div class="when">Mar 2025 to Dec 2025</div>
+<div>
+<h3>Content and Marketing Reporter</h3>
+<p class="org">Ministry of SMEs and Startups, Republic of Korea</p>
+<ul>
+<li>Ranked #1 of 30 reporters in total engagement.</li>
+<li>Averaged 4,000+ views per post. That is about 4x the group average.</li>
+<li>Tested Reels and carousels against audience response. Used generative AI to explain policy in plain language.</li>
+<li>My AI character design passed the first round of the COMEUP 2025 AI character contest.</li>
+</ul>
+</div>
+</li>
+<li class="role">
+<div class="when">Jul 2025 to Sep 2025</div>
+<div>
+<h3>Content Marketer</h3>
+<p class="org">Hackers Education Group</p>
+<ul><li>Named Top Performer with 1,300+ average video views. Top posts passed 6,000 views.</li></ul>
+</div>
+</li>
+<li class="role">
+<div class="when">May 2024 to Dec 2024</div>
+<div>
+<h3>Citizen Advisor and Youth Statistics Mentor</h3>
+<p class="org">Statistics Korea (now Ministry of Data and Statistics)</p>
+<ul>
+<li>Received two Commissioner's Awards. One for advisory work and one for mentoring.</li>
+<li>Made carousel content on best practices in government innovation.</li>
+<li>Raised student satisfaction from 95% to 99% as a mentor.</li>
+</ul>
+</div>
+</li>
+<li class="role">
+<div class="when">Feb 2024 to Dec 2024</div>
+<div>
+<h3>Content Creator</h3>
+<p class="org">Ministry of Education, Republic of Korea</p>
+<ul><li>Turned education policy into blog articles and short videos. One Instagram Reel reached 39,000 views.</li></ul>
+</div>
+</li>
+<li class="role">
+<div class="when">Feb 2024 to Aug 2024</div>
+<div>
+<h3>Student Ambassador, Content and Promotion</h3>
+<p class="org">Shinhan Bank</p>
+<ul>
+<li>Created supporting promotional content related to Shinhan Bank's baseball marketing activities featuring the SSG Landers, including collaboration apparel, as a student ambassador.</li>
+<li>Cut content turnaround time by 30% with thumbnail templates and A/B tests.</li>
+<li>Managed the team calendar and tracked expenses in Excel.</li>
+</ul>
+<p style="margin:10px 0 0"><a href="shinhan-bank/">See the campaign portfolio</a></p>
+</div>
+</li>
+<li class="role">
+<div class="when">Jul 2022 to Feb 2024</div>
+<div>
+<h3>Social Media Strategist and Manager (Part time)</h3>
+<p class="org">Korea University Admissions Office</p>
+<ul>
+<li>Grew a prospective student community from 10 to 800 members in two weeks. Views grew from 20 to 14,400.</li>
+<li>Analyzed reach, CTR and retention to redefine each channel's role.</li>
+</ul>
+</div>
+</li>
+</ol>
+</section>
+<section id="teaching">
+<h2>Teaching and mentoring</h2>
+<p class="intro">Where I learned to explain ideas clearly. I still use this every time I make content.</p>
+<ol class="roles">
+<li class="role">
+<div class="when">Jan 2025 to Feb 2025</div>
+<div>
+<h3>Student Teacher</h3>
+<p class="org">Cedar High School, Utah, USA</p>
+<ul><li>Taught on site for four weeks in an American high school.</li></ul>
+</div>
+</li>
+<li class="role">
+<div class="when">Oct 2024 to Nov 2024</div>
+<div>
+<h3>Student Teacher</h3>
+<p class="org">Chungbuk Foreign Language High School, South Korea</p>
+<ul><li>Taught English on site for four weeks.</li></ul>
+</div>
+</li>
+<li class="role">
+<div class="when">Summer 2022 to Summer 2024</div>
+<div>
+<h3>English Camp Mentor</h3>
+<p class="org">HAFS English Camp by HUFS Language Laboratory Corp.</p>
+<ul>
+<li>Worked five seasons on site. Each season ran 20 days.</li>
+<li>Managed the shared drive for essay class materials.</li>
+<li>Tracked mentor schedules and deadlines. Reported essay progress to the camp team.</li>
+</ul>
+</div>
+</li>
+</ol>
+</section>
+<section id="education">
+<div class="cols">
+<div>
+<h2>Education</h2>
+<h3>M.S. in Marketing Analytics and Insights</h3>
+<p class="sub">Rutgers Business School · Expected May 2027</p>
+<ul class="tags">
+<li>Marketing Research</li>
+<li>Customer Journey Analytics</li>
+<li>Business Intelligence Analytics (R)</li>
+<li>AI in Marketing</li>
+</ul>
+<h3>B.A. in English Education</h3>
+<p class="sub">Korea National University of Education · Feb 2026<br>Transferred from Korea University after two years of Public Administration</br></p>
+<h3>Awards</h3>
+<p class="sub">Two Statistics Korea Commissioner's Awards (2024)<br/>Korea University Top Talent Award and Merit Scholarship (2023)</p>
+</div>
+<div>
+<h2>Skills</h2>
+<h3>Analytics</h3>
+<ul class="tags">
+<li>Google Analytics 4</li>
+<li>Excel</li>
+<li>R and Python (basic)</li>
+<li>A/B Testing</li>
+<li>Customer Journey Mapping</li>
+<li>Persona Development</li>
+</ul>
+<h3>Content and AI</h3>
+<ul class="tags">
+<li>Instagram Insights</li>
+<li>Canva</li>
+<li>Photoshop</li>
+<li>CapCut</li>
+<li>ChatGPT</li>
+<li>Claude</li>
+<li>Gemini</li>
+<li>Suno AI</li>
+</ul>
+<h3>Certifications</h3>
+<p class="sub">Google Analytics<br/>ADsP Data Analytics Certificate (Korea Data Agency)<br/>Secondary Teacher Certificate in English</p>
+<h3>Languages</h3>
+<p class="sub">Korean (native)<br/>English (fluent)<br/>French (basic)</p>
+</div>
+</div>
+</section>
+<section class="contact" id="contact">
+<h2>Let's talk</h2>
+<p class="intro">Based in New Jersey and open to opportunities across marketing, strategy, and analytics. Let’s connect.</p>
+<a class="mail" href="mailto:yj693@rutgers.edu">yj693@rutgers.edu</a>
+</section>
+<footer>© 2026 Yewon (Emily) Jung</footer>
 </div>
 <script src="assets/cat.js"></script>
-</body>
+<script>if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) { const nodes=document.querySelectorAll('section'); nodes.forEach(n=>n.classList.add('reveal')); const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08});nodes.forEach(n=>io.observe(n)); }</script></body>
 </html>
