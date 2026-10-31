@@ -157,6 +157,19 @@
   .case p { margin: 0 4px; color: var(--muted); font-size: 15px; }
   .case .cta { margin: 12px 4px 0; font-weight: 600; font-size: 15px; color: var(--cobalt); }
   @media (max-width: 720px) { .cases { grid-template-columns: 1fr; } }
+
+  .vids { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .vid h3 { font-size: 17px; margin: 6px 0 4px; font-weight: 600; }
+  .vid p { margin: 0; color: var(--muted); font-size: 14px; }
+  .vid .thumb { position: relative; display: block; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background: #000; }
+  .vid .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vid .play { position: absolute; right: 10px; bottom: 10px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,.55); }
+  .vid .play::after { content: ""; position: absolute; left: 14px; top: 11px; border-left: 11px solid #fff; border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+  .vid .stats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .vid .stat { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--cobalt); }
+  .vid .vlinks { margin-top: 8px; display: flex; gap: 12px; }
+  .vid .vlinks a { font-weight: 600; font-size: 14px; }
+  @media (max-width: 860px) { .vids { grid-template-columns: repeat(2, 1fr); } }
 </style>
 </head>
 <body>
@@ -171,6 +184,7 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#channel">Videos</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -199,7 +213,7 @@
         <tr><td class="what">Average views per post</td><td class="where">Ministry of SMEs and Startups</td><td class="num">4x<small>group average</small></td></tr>
         <tr><td class="what">Prospective student community grown from 10 members</td><td class="where">Korea University Admissions</td><td class="num">800<small>members</small></td></tr>
         <tr><td class="what">Faster content turnaround with templates and A/B tests</td><td class="where">Shinhan Bank</td><td class="num">30%<small>faster</small></td></tr>
-        <tr><td class="what">US grocery picks Shorts</td><td class="where">My YouTube</td><td class="num">26K<small>views</small></td></tr>
+        <tr><td class="what">US grocery picks Shorts</td><td class="where">My YouTube</td><td class="num">27K<small>views</small></td></tr>
       </tbody>
     </table>
   </section>
@@ -515,8 +529,38 @@
 
   <section id="channel">
     <h2>My own channel</h2>
-    <p class="intro">I share my content work on my own Instagram. You will find K-beauty, baseball and US shopping content there.</p>
-    <a class="btn" href="https://www.instagram.com/yeactivity13/" target="_blank" rel="noopener">Visit @yeactivity13</a>
+    <p class="intro">Short form videos I plan, shoot and edit myself. K-beauty, baseball, AI and US shopping content.</p>
+    <div class="vids">
+      <article class="vid">
+        <a class="thumb" href="https://youtube.com/shorts/7qe0UIIFoYg" target="_blank" rel="noopener"><img src="videos/uscart.webp" width="450" height="800" loading="lazy" alt="US grocery picks video thumbnail"><span class="play" aria-hidden="true"></span></a>
+        <div class="stats"><span class="stat">27K views on YouTube</span><span class="stat">14.4K on Instagram</span></div>
+        <h3>US grocery picks</h3>
+        <p>My must buy list from Trader Joe's, Target and Walmart.</p>
+        <p class="vlinks"><a href="https://youtube.com/shorts/7qe0UIIFoYg" target="_blank" rel="noopener">YouTube</a> <a href="https://www.instagram.com/reel/DMHZQS1S-Iu/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid">
+        <a class="thumb" href="https://www.instagram.com/reel/DNUUyf2yVAm/" target="_blank" rel="noopener"><img src="videos/nuse.webp" width="450" height="800" loading="lazy" alt="NUSE x SSG Landers fan video video thumbnail"><span class="play" aria-hidden="true"></span></a>
+        <div class="stats"><span class="stat">Reposted by NUSE</span></div>
+        <h3>NUSE x SSG Landers fan video</h3>
+        <p>I turned NUSE products into baseball players for their Landers collab. NUSE reposted it, sent me a seeding kit and asked to use it in their marketing.</p>
+        <p class="vlinks"><a href="https://www.instagram.com/reel/DNUUyf2yVAm/" target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+      <article class="vid">
+        <a class="thumb" href="https://youtube.com/shorts/05FzaezqrRo" target="_blank" rel="noopener"><img src="videos/landers.webp" width="450" height="800" loading="lazy" alt="KBO fan trend Reel video thumbnail"><span class="play" aria-hidden="true"></span></a>
+        <div class="stats"><span class="stat">20K views on YouTube</span></div>
+        <h3>KBO fan trend Reel</h3>
+        <p>A long distance fan story made with the No Roots sound trend.</p>
+        <p class="vlinks"><a href="https://youtube.com/shorts/05FzaezqrRo" target="_blank" rel="noopener">YouTube</a></p>
+      </article>
+      <article class="vid">
+        <a class="thumb" href="https://youtube.com/shorts/Nt5jhoA4Cyk" target="_blank" rel="noopener"><img src="videos/chatgpt.webp" width="450" height="800" loading="lazy" alt="ChatGPT character prompt video thumbnail"><span class="play" aria-hidden="true"></span></a>
+        <div class="stats"><span class="stat">5K views on YouTube</span></div>
+        <h3>ChatGPT character prompt</h3>
+        <p>I shared a prompt that turns you into a cute game character in seconds.</p>
+        <p class="vlinks"><a href="https://youtube.com/shorts/Nt5jhoA4Cyk" target="_blank" rel="noopener">YouTube</a></p>
+      </article>
+    </div>
+    <p style="margin-top:28px"><a class="btn" href="https://www.instagram.com/yeactivity13/" target="_blank" rel="noopener">Visit @yeactivity13</a></p>
   </section>
 
   <section class="contact" id="contact">
