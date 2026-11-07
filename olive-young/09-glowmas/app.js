@@ -271,12 +271,19 @@
     g.innerHTML = html; return $$(".bulb", g);
   }
   function snowCanvas(canvas, opts) {
-    const o = Object.assign({ n: 70, speed: 1 }, opts || {}); const ctx = canvas.getContext("2d"); let W, H, flakes = [], run = true, vis = true;
+    const o = Object.assign({ n: 70, speed: 1 }, opts || {}); const ctx = canvas.getContext("2d"); let W, H, flakes = [], run = true;
     const size = () => { const r = canvas.getBoundingClientRect(); W = canvas.width = Math.max(1, r.width * devicePixelRatio); H = canvas.height = Math.max(1, r.height * devicePixelRatio); };
     size(); addEventListener("resize", size);
     for (let i = 0; i < o.n; i++) flakes.push({ x: Math.random(), y: Math.random(), r: .8 + Math.random() * 2.4, s: .2 + Math.random() * .6, w: Math.random() * 6 });
-    const draw = (t) => { ctx.clearRect(0, 0, W, H); ctx.fillStyle = "rgba(251,246,238,.9)"; flakes.forEach((f) => { if (!reduce()) { f.y += f.s * .0018 * o.speed; f.x += Math.sin(t / 1600 + f.w) * .0004; if (f.y > 1.02) { f.y = -.02; f.x = Math.random(); } } ctx.globalAlpha = .45 + f.r / 6; ctx.beginPath(); ctx.arc(f.x * W, f.y * H, f.r * devicePixelRatio, 0, 7); ctx.fill(); }); if (run && vis) requestAnimationFrame(draw); };
-    new IntersectionObserver((en) => { const was = vis; vis = en[0].isIntersecting; if (vis && !was) requestAnimationFrame(draw); }).observe(canvas);
+    // Runs while the page is open and skips drawing when off screen.
+    // No visibility observer, which Safari can mis-report inside embedded frames.
+    const draw = (t) => {
+      if (!run) return; requestAnimationFrame(draw);
+      if (document.hidden) return;
+      const rb = canvas.getBoundingClientRect(); if (!rb.width || rb.bottom < 0 || rb.top > innerHeight) return;
+      if (canvas.width !== Math.max(1, Math.trunc(rb.width * devicePixelRatio))) size();
+      try { ctx.clearRect(0, 0, W, H); ctx.fillStyle = "rgba(251,246,238,.9)"; flakes.forEach((f) => { if (!reduce()) { f.y += f.s * .0018 * o.speed; f.x += Math.sin(t / 1600 + f.w) * .0004; if (f.y > 1.02) { f.y = -.02; f.x = Math.random(); } } ctx.globalAlpha = .45 + f.r / 6; ctx.beginPath(); ctx.arc(f.x * W, f.y * H, f.r * devicePixelRatio, 0, 7); ctx.fill(); }); } catch (e) {}
+    };
     requestAnimationFrame(draw);
   }
   function initHero() {
@@ -288,7 +295,8 @@
     const scene = $("#scene"), layers = { back: $(".l-back", scene), tree: $(".l-tree", scene), snow: $(".snow", scene), gifts: $(".l-gifts", scene), front: $(".l-front", scene) };
     const F = { back: 6, tree: 12, snow: 18, gifts: 24, front: 34 }; let px = 0, py = 0, sy = 0;
     Object.keys(layers).forEach((k) => { if (!layers[k]) delete layers[k]; });
-    const apply = () => { if (reduce()) return; Object.keys(layers).forEach((k) => { layers[k].style.transform = "translate3d(" + (px * F[k]).toFixed(1) + "px," + (py * F[k] * .6 + sy * F[k] * .04).toFixed(1) + "px,0)"; }); };
+    const desktopFx = () => innerWidth >= 900 && !reduce();
+    const apply = () => { if (!desktopFx()) { Object.keys(layers).forEach((k) => { layers[k].style.transform = ""; }); return; } Object.keys(layers).forEach((k) => { layers[k].style.transform = "translate3d(" + (px * F[k]).toFixed(1) + "px," + (py * F[k] * .6 + sy * F[k] * .04).toFixed(1) + "px,0)"; }); };
     scene.addEventListener("pointermove", (e) => { const r = scene.getBoundingClientRect(); px = ((e.clientX - r.left) / r.width - .5) * -1; py = ((e.clientY - r.top) / r.height - .5) * -1; apply(); });
     scene.addEventListener("pointerleave", () => { px = 0; py = 0; apply(); });
     $$(".gift", scene).forEach((g) => g.addEventListener("click", () => { g.classList.add("hop"); setTimeout(() => g.classList.remove("hop"), 500); }));
@@ -602,7 +610,7 @@
       '<button class="text-link" type="button" id="gBack">Back to My Calendar</button><p class="game-foot">Demo game. No real prizes.</p></div>';
     openSheet(html, "full dark");
     paintTree("globeTree", { cx: 150, top: 112, bottom: 226, width: 100, rows: 8, seed: 5, lights: 0 });
-    gSnow = globeSnow($("#globeSnow"));
+    try { gSnow = globeSnow($("#globeSnow")); } catch (e) { gSnow = { storm() {}, stop() {} }; }
     globeStop = gSnow.stop;
     if (state === "played") showLuckyResult(d, S.lucky[d], false);
     $("#gBack").addEventListener("click", closeSheet);
@@ -613,7 +621,8 @@
   // Phones: a real shake plays the globe. iPhone asks for motion access first, on a tap.
   function armShake(play) {
     const coarse = window.matchMedia && matchMedia("(pointer: coarse)").matches;
-    if (!coarse || typeof window.DeviceMotionEvent === "undefined") return;
+    let framed = true; try { framed = window.self !== window.top; } catch (e) {}
+    if (!coarse || framed || typeof window.DeviceMotionEvent === "undefined") return;
     const hint = document.createElement("button"); hint.type = "button"; hint.className = "text-link shake-hint"; play.insertAdjacentElement("afterend", hint);
     let last = null, fired = false;
     const onMotion = (e) => {
@@ -628,31 +637,67 @@
       hint.addEventListener("click", () => { DeviceMotionEvent.requestPermission().then((r) => { if (r === "granted") listen(); else hint.textContent = "Motion is off. Tap Try Your Luck instead."; }).catch(() => { hint.textContent = "Shaking isn't available here. Tap Try Your Luck."; }); });
     } else { listen(); hint.textContent = "Or shake your phone"; }
   }
+  let luckyBusy = false;
+  // Bring an element into view inside whatever scrolls it (the sheet, or the page).
+  function bringIntoView(el) {
+    if (!el) return;
+    try { el.scrollIntoView({ behavior: reduce() ? "auto" : "smooth", block: "nearest" }); } catch (e) {}
+    try {
+      let sc = el.parentElement;
+      while (sc && sc !== document.body) { const oy = getComputedStyle(sc).overflowY; if ((oy === "auto" || oy === "scroll") && sc.scrollHeight > sc.clientHeight) break; sc = sc.parentElement; }
+      if (sc && sc !== document.body) { const r = el.getBoundingClientRect(), b = sc.getBoundingClientRect(); if (r.bottom > b.bottom - 8) sc.scrollTop += r.bottom - b.bottom + 24; }
+    } catch (e) {}
+  }
+  /* Lucky Draw. The result is decided and saved first, so a reload can't re-roll it.
+     The reveal is guaranteed. Timers drive the sequence (not the animation loop),
+     every animation step is protected, and a watchdog forces the reveal if anything stalls. */
   function runLucky(d, snow) {
-    if (S.lucky[d]) return;
+    if (S.lucky[d] || luckyBusy) return;
+    luckyBusy = true;
     const res = decideLucky(d); // decided first
     S.lucky[d] = res; if (res.o === "ticket") S.luckyBonus = true; persist();
     track("instant_draw_play", { day: d, outcome: res.o, cap_reached: res.capped });
     if (res.o === "ticket") track("ticket_earned", { source: "lucky_draw", total: ticketEarned() });
     const btn = $("#gPlay"); if (btn) { btn.disabled = true; btn.hidden = true; } const sh = $(".shake-hint"); if (sh) sh.remove();
-    const st = $("#gStatus"); st.textContent = "Shaking…";
-    const globe = $("#globe"); const gifts = $$(".mg", globe); const glass = $(".glass", globe);
-    if (reduce()) { finishLucky(); return; }
-    globe.classList.add("shake", "swirl"); snow.storm(true); globe.scrollIntoView({ behavior: "smooth", block: "center" });
-    const W = glass.clientWidth, t0 = performance.now(), base = gifts.map((g, i) => ({ a: i / gifts.length * Math.PI * 2, r: .3 + (i % 3) * .05 }));
-    (function orbit(t) {
-      const k = Math.min(1, (t - t0) / 2200);
-      gifts.forEach((g, i) => { const b = base[i], a = b.a + k * 7 * (i % 2 ? 1 : -1) + Math.sin(t / 200 + i) * .2, r = b.r * (1 - .3 * Math.sin(k * Math.PI)); g.style.transform = "translate(" + ((.5 + Math.cos(a) * r - .075) * W).toFixed(1) + "px," + ((.52 + Math.sin(a) * r * .8 - .075) * W).toFixed(1) + "px) rotate(" + (Math.sin(k * Math.PI) * 200 * (i % 2 ? 1 : -1)).toFixed(0) + "deg)"; });
-      if (k < 1) requestAnimationFrame(orbit); else finishLucky();
-    })(t0);
-    placeGifts(gifts, W, true);
-    function finishLucky() {
-      snow.storm(false); st.textContent = "Something is coming out of the snow…";
-      globe.classList.remove("swirl"); gifts[0].style.opacity = "0"; placeGifts(gifts.slice(1), W, false);
-      const hg = $("#heroGift"); hg.classList.add("show");
-      setTimeout(() => { hg.classList.add("open"); }, reduce() ? 0 : 1000);
-      setTimeout(() => { st.textContent = ""; showLuckyResult(d, res, true); syncAll(); const gr = $("#gResult"); if (gr) gr.scrollIntoView({ behavior: reduce() ? "auto" : "smooth", block: "nearest" }); }, reduce() ? 100 : 1700);
-    }
+    const st = $("#gStatus"); if (st) st.textContent = "Shaking…";
+    let revealed = false, orbiting = false;
+    const reveal = () => {
+      if (revealed) return; revealed = true; orbiting = false; luckyBusy = false; clearTimeout(watchdog);
+      try { if (snow) snow.storm(false); } catch (e) {}
+      try { const g = $("#globe"); if (g) g.classList.remove("swirl"); } catch (e) {}
+      if (st) st.textContent = "";
+      try { showLuckyResult(d, res, true); }
+      catch (e) { const gr = $("#gResult"), o = LUCKY_OUT[res.o]; if (gr) gr.innerHTML = '<div class="result"><p class="r-kind">' + o.kind.toUpperCase() + '</p><p class="r-title">' + (res.o === "fortune" ? "A Little Fortune for You" : o.title) + '</p><p class="note">Demo game. No real prizes.</p></div>'; }
+      try { syncAll(); } catch (e) {}
+      bringIntoView($("#gResult"));
+    };
+    const watchdog = setTimeout(reveal, reduce() ? 600 : 4500);
+    try {
+      const globe = $("#globe"), gifts = globe ? $$(".mg", globe) : [], glass = globe ? $(".glass", globe) : null;
+      const W = glass ? glass.clientWidth : 300;
+      const popGift = () => { try { if (gifts[0]) gifts[0].style.opacity = "0"; placeGifts(gifts.slice(1), W, false); const hg = $("#heroGift"); if (hg) { hg.classList.add("show"); setTimeout(() => hg.classList.add("open"), reduce() ? 0 : 1000); } } catch (e) {} };
+      if (reduce()) { popGift(); setTimeout(reveal, 300); return; }
+      globe.classList.add("shake", "swirl"); try { snow.storm(true); } catch (e) {}
+      try { globe.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
+      const t0 = performance.now(), base = gifts.map((g, i) => ({ a: i / gifts.length * Math.PI * 2, r: .3 + (i % 3) * .05 }));
+      orbiting = true;
+      (function orbit(t) {
+        if (!orbiting) return;
+        try {
+          const k = Math.min(1, Math.max(0, ((t || performance.now()) - t0) / 2200));
+          gifts.forEach((g, i) => { const b = base[i], a = b.a + k * 7 * (i % 2 ? 1 : -1) + Math.sin(t / 200 + i) * .2, r = b.r * (1 - .3 * Math.sin(k * Math.PI)); g.style.transform = "translate(" + ((.5 + Math.cos(a) * r - .075) * W).toFixed(1) + "px," + ((.52 + Math.sin(a) * r * .8 - .075) * W).toFixed(1) + "px) rotate(" + (Math.sin(k * Math.PI) * 200 * (i % 2 ? 1 : -1)).toFixed(0) + "deg)"; });
+        } catch (e) { orbiting = false; return; }
+        requestAnimationFrame(orbit);
+      })(t0);
+      // The timeline runs on timers, so a slow or paused animation loop can't block the result.
+      setTimeout(() => {
+        orbiting = false;
+        try { if (snow) snow.storm(false); globe.classList.remove("swirl"); } catch (e) {}
+        if (st && !revealed) st.textContent = "Something is coming out of the snow…";
+        popGift();
+        setTimeout(reveal, 1700);
+      }, 2200);
+    } catch (e) { reveal(); }
   }
   function showLuckyResult(d, res, fresh) {
     const o = LUCKY_OUT[res.o], nx = nextLuckyDay(); let body2 = "";
@@ -660,9 +705,9 @@
     if (res.o === "coupon") body2 = '<p>On orders of $25 or more.</p><p class="bigcode">' + o.code + '</p><p class="c-demo">DEMO ONLY · NOT REDEEMABLE</p>';
     if (res.o === "bag") body2 = "<p>Comes with your next order of $50 or more.</p>";
     if (res.o === "ticket") body2 = "<p>One bonus ticket per member.</p>";
-    const gr = $("#gResult"); setTimeout(() => gr.scrollIntoView({ behavior: reduce() ? "auto" : "smooth", block: "nearest" }), 80);
+    const gr = $("#gResult"); setTimeout(() => bringIntoView(gr), 80);
     gr.innerHTML = '<div class="result"><p class="r-kind">' + o.kind.toUpperCase() + '</p><p class="r-title">' + (res.o === "fortune" ? "A Little Fortune for You" : o.title) + "</p>" + body2 + '<p class="note">Demo game. No real prizes.</p></div>';
-    if (fresh) { if (res.o !== "fortune") confetti({ n: 160 }); else confetti({ n: 60, snow: true, colors: ["#FBF6EE"] }); if (res.o === "ticket") setTimeout(() => flyTo($("#gResult"), "ticket"), 400); }
+    if (fresh) { try { if (res.o !== "fortune") confetti({ n: 160 }); else confetti({ n: 60, snow: true, colors: ["#FBF6EE"] }); } catch (e) {} if (res.o === "ticket") setTimeout(() => { try { flyTo($("#gResult"), "ticket"); } catch (e) {} }, 400); }
   }
   function placeGifts(gifts, W, skip) { if (skip) return; gifts.forEach((g, i) => { g.style.transform = "translate(" + ((.18 + i * .11) * W).toFixed(1) + "px," + ((.7 + (i % 2) * .05) * W).toFixed(1) + "px)"; }); }
   function globeSnow(canvas) {

@@ -1510,3 +1510,8 @@ body { line-height: 1.45; }
   .hero-text .hero-action { margin-top: 14px; }
   .hero-text #heroCta { white-space: nowrap; padding-left: 18px; padding-right: 16px; font-size: 15.5px; }
 }
+
+/* Hero scene on phones and with Reduce Motion: a still picture, no layer movement.
+   Desktop keeps its scroll parallax. */
+@media (max-width: 899px) { .scene .layer { will-change: auto; transform: none !important; transition: none; } }
+@media (prefers-reduced-motion: reduce) { .scene .layer { will-change: auto; } }
