@@ -1499,3 +1499,14 @@ body { line-height: 1.45; }
 .mini-cab .mc-1 { animation: blink 2s ease-in-out infinite; }
 .mini-cabinet .cab-today { animation: blink 2s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .mini-cab .mc-1, .mini-cabinet .cab-today { animation: none; } }
+
+/* Small phones (e.g. iPhone SE 320x568): keep the hero button above the fold.
+   Spacing and intro size only. Copy, order and colors unchanged. */
+@media (max-width: 360px) {
+  .hero { padding-top: 24px; }
+  .hero-text { padding-top: 18px; }
+  .hero-text .subtitle { margin-top: 14px; }
+  .hero-text .intro { font-size: 15.5px; margin-top: 10px; }
+  .hero-text .hero-action { margin-top: 14px; }
+  .hero-text #heroCta { white-space: nowrap; padding-left: 18px; padding-right: 16px; font-size: 15.5px; }
+}
