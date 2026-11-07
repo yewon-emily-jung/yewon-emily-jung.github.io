@@ -1044,7 +1044,7 @@
   function syncHero() {
     const [label, act] = heroStage(); $(".cta-label", heroCta).textContent = label; heroCta.dataset.act = act;
     heroCta.classList.toggle("pulse", act === "open" || act === "lucky");
-    $("#dateChip").textContent = S.day <= 12 ? "Day " + S.day + " of 12 · Dec " + S.day : S.day === 13 ? "Grand Draw open · Dec 13" : "Glowmas has ended · Dec 14";
+    $("#dateChipText").textContent = S.day <= 12 ? "Day " + S.day + " of 12 · Dec " + S.day : S.day === 13 ? "Grand Draw open · Dec 13" : "Glowmas has ended · Dec 14";
     const note = $("#heroNote"); const showN = S.day === 12 && S.joined && !S.opened[12]; note.hidden = !showN; note.textContent = "Open Door 12 first to add your tickets.";
     $("#signInLink").hidden = S.joined;
     $("#wallNote").textContent = S.day > 12 ? "The calendar is complete. Your opened doors stay open." : (S.joined && S.opened[S.day]) ? (S.day < 12 ? "Today's door is open. Door " + (S.day + 1) + " opens tomorrow." : "Today's door is open. See you at the Grand Draw.") : "Today's door wears a green tag. Tap to open it.";

@@ -1491,3 +1491,11 @@ body { line-height: 1.45; }
   .draw.lucky .draw-status:empty { display: none; }
   .draw.lucky #gPlay { margin-top: 8px; }
 }
+
+/* Advent cabinet peek in the hero (echoes the Instagram ad) */
+.date-chip.has-cab::before { display: none; }
+.mini-cab { display: inline-block; width: 18px; height: 15px; flex: none; }
+.mini-cab svg { display: block; width: 100%; height: 100%; }
+.mini-cab .mc-1 { animation: blink 2s ease-in-out infinite; }
+.mini-cabinet .cab-today { animation: blink 2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .mini-cab .mc-1, .mini-cabinet .cab-today { animation: none; } }
