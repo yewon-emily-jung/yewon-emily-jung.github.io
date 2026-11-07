@@ -1523,3 +1523,6 @@ body { line-height: 1.45; }
 .howstrip .how-join { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
 .howstrip .how-join[hidden] { display: none; }
 .howstrip .how-join-note { margin: 0; font-size: 14px; color: var(--muted); }
+
+/* Beauty Fortune progress line */
+.result .r-progress { margin: 0; font-weight: 700; color: var(--forest); }

@@ -704,9 +704,23 @@
       }, 2200);
     } catch (e) { reveal(); }
   }
+  /* Progress line for a Beauty Fortune. Uses this visitor's real progress and only names a
+     gift box they can still reach with the doors left (plus an earned, unused Catch-up Key).
+     Never names a box after a milestone coupon was already redeemed. */
+  function fortuneProgressLine() {
+    const n = openedCount(), t = today();
+    if (n >= 12) return "All 12 doors are open. Your tickets are ready for the Grand Draw.";
+    const next = MILESTONES.find((m) => m.doors > n);
+    const doorsLeft = (t && !S.opened[t] ? 1 : 0) + Math.max(0, 12 - S.day) + (S.keyEarned && !S.keyUsed ? 1 : 0);
+    if (next && !R && next.doors - n <= doorsLeft) {
+      const k = next.doors - n;
+      return "You're " + k + " " + (k === 1 ? "door" : "doors") + " away from your " + next.pct + "% gift box.";
+    }
+    return "Every door you open adds an ornament and a Grand Draw ticket.";
+  }
   function showLuckyResult(d, res, fresh) {
     const o = LUCKY_OUT[res.o], nx = nextLuckyDay(); let body2 = "";
-    if (res.o === "fortune") body2 = "<p>" + FORTUNES[res.f || 0] + '</p><p class="note">No prize this time.' + (nx ? " Your luck grows on " + dl(nx) + "." : "") + "</p>";
+    if (res.o === "fortune") body2 = "<p>" + FORTUNES[res.f || 0] + '</p><p class="r-progress">' + fortuneProgressLine() + '</p><p class="note">No prize this time.' + (nx ? " Your luck grows on " + dl(nx) + "." : "") + "</p>";
     if (res.o === "coupon") body2 = '<p>On orders of $25 or more.</p><p class="bigcode">' + o.code + '</p><p class="c-demo">DEMO ONLY · NOT REDEEMABLE</p>';
     if (res.o === "bag") body2 = "<p>Comes with your next order of $50 or more.</p>";
     if (res.o === "ticket") body2 = "<p>One bonus ticket per member.</p>";
