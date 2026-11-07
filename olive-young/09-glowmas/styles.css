@@ -1477,3 +1477,17 @@ body { line-height: 1.45; }
 @keyframes glowInk { 0%, 100% { color: #E2C77F; } 50% { color: #FBE7AE; } }
 @keyframes glowSpark { 0%, 35%, 100% { opacity: 0; transform: scale(.4) rotate(0deg); } 50% { opacity: 1; transform: scale(1) rotate(45deg); } 65% { opacity: 0; transform: scale(.6) rotate(90deg); } }
 @media (prefers-reduced-motion: reduce) { .glow-word, .glow-word::before, .glow-word::after { animation: none; } .glow-word::before { opacity: .8; } .glow-word::after { opacity: 0; } }
+
+/* Shake-to-play hint under the globe button (phones only) */
+.shake-hint { display: block; margin: 10px auto 0; color: var(--gold-lt) !important; font-weight: 700; }
+.shake-hint:disabled { opacity: 1; cursor: default; text-decoration: none; }
+/* Phones: fit the globe and its button on one screen */
+@media (max-width: 600px) {
+  .draw.lucky { padding-top: 54px; row-gap: 10px; }
+  .draw.lucky h2 { font-size: 30px; }
+  .draw.lucky .lede { font-size: 15px; margin-top: 8px; }
+  .draw.lucky .odds { font-size: 13px; gap: 4px 12px; margin: 8px 0 0; }
+  .draw.lucky .globe:not(.preview) { width: min(76vw, calc((100svh - 365px) * .84)); min-width: 168px; }
+  .draw.lucky .draw-status:empty { display: none; }
+  .draw.lucky #gPlay { margin-top: 8px; }
+}

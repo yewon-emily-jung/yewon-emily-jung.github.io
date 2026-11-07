@@ -597,8 +597,8 @@
       '<p class="lede">' + ({ ready: "Four lucky days. One free shake each. See what the snow uncovers.", join: "Join free to play on Dec 1, 3, 6 and 9.", age: "Draws are for US residents 18 and older.", off: nx ? "The next globe opens " + dl(nx) + "." : "The snow has settled for this year. See you at the Grand Draw.", played: "You've shaken today's globe." + (nx ? " Next shake on " + dl(nx) + "." : "") })[state] + "</p>" +
       (odds ? '<ul class="odds"><li>Beauty Fortune</li><li>Health &amp; Wellness coupon</li><li>Gift Bag</li><li>Bonus ticket</li></ul>' : "") +
       globeHTML(d && isDay ? d : (nx || 9)) +
-      '<p class="draw-status" id="gStatus" aria-live="polite"></p><div id="gResult"></div>' +
       (state === "ready" ? '<button class="cta" type="button" id="gPlay">Try Your Luck' + chev + "</button>" : state === "join" ? '<button class="cta" type="button" id="gJoin">Join Glowmas for Free' + chev + "</button>" : "") +
+      '<p class="draw-status" id="gStatus" aria-live="polite"></p><div id="gResult"></div>' +
       '<button class="text-link" type="button" id="gBack">Back to My Calendar</button><p class="game-foot">Demo game. No real prizes.</p></div>';
     openSheet(html, "full dark");
     paintTree("globeTree", { cx: 150, top: 112, bottom: 226, width: 100, rows: 8, seed: 5, lights: 0 });
@@ -608,7 +608,25 @@
     $("#gBack").addEventListener("click", closeSheet);
     const j = $("#gJoin"); if (j) j.addEventListener("click", () => showJoin({}));
     const play = $("#gPlay");
-    if (play) play.addEventListener("click", () => ageGate(() => { if (!sheet.querySelector("#globe")) openLucky(); runLucky(d, gSnow); }));
+    if (play) { play.addEventListener("click", () => ageGate(() => { if (!sheet.querySelector("#globe")) openLucky(); runLucky(d, gSnow); })); armShake(play); }
+  }
+  // Phones: a real shake plays the globe. iPhone asks for motion access first, on a tap.
+  function armShake(play) {
+    const coarse = window.matchMedia && matchMedia("(pointer: coarse)").matches;
+    if (!coarse || typeof window.DeviceMotionEvent === "undefined") return;
+    const hint = document.createElement("button"); hint.type = "button"; hint.className = "text-link shake-hint"; play.insertAdjacentElement("afterend", hint);
+    let last = null, fired = false;
+    const onMotion = (e) => {
+      const live = $("#gPlay"); if (!live || live.hidden || live.disabled || fired) { window.removeEventListener("devicemotion", onMotion); return; }
+      const a = e.accelerationIncludingGravity || e.acceleration; if (!a || a.x == null) return;
+      if (last) { const dlt = Math.abs(a.x - last.x) + Math.abs(a.y - last.y) + Math.abs(a.z - last.z); if (dlt > 22) { fired = true; window.removeEventListener("devicemotion", onMotion); hint.remove(); track("lucky_shake", { day: today() }); live.click(); } }
+      last = { x: a.x, y: a.y, z: a.z };
+    };
+    const listen = () => { window.addEventListener("devicemotion", onMotion); hint.textContent = "Now shake your phone!"; hint.disabled = true; };
+    if (typeof DeviceMotionEvent.requestPermission === "function") {
+      hint.textContent = "Or tap here, then shake your phone";
+      hint.addEventListener("click", () => { DeviceMotionEvent.requestPermission().then((r) => { if (r === "granted") listen(); else hint.textContent = "Motion is off. Tap Try Your Luck instead."; }).catch(() => { hint.textContent = "Shaking isn't available here. Tap Try Your Luck."; }); });
+    } else { listen(); hint.textContent = "Or shake your phone"; }
   }
   function runLucky(d, snow) {
     if (S.lucky[d]) return;
@@ -616,7 +634,7 @@
     S.lucky[d] = res; if (res.o === "ticket") S.luckyBonus = true; persist();
     track("instant_draw_play", { day: d, outcome: res.o, cap_reached: res.capped });
     if (res.o === "ticket") track("ticket_earned", { source: "lucky_draw", total: ticketEarned() });
-    const btn = $("#gPlay"); if (btn) { btn.disabled = true; btn.hidden = true; }
+    const btn = $("#gPlay"); if (btn) { btn.disabled = true; btn.hidden = true; } const sh = $(".shake-hint"); if (sh) sh.remove();
     const st = $("#gStatus"); st.textContent = "Shaking…";
     const globe = $("#globe"); const gifts = $$(".mg", globe); const glass = $(".glass", globe);
     if (reduce()) { finishLucky(); return; }
@@ -633,7 +651,7 @@
       globe.classList.remove("swirl"); gifts[0].style.opacity = "0"; placeGifts(gifts.slice(1), W, false);
       const hg = $("#heroGift"); hg.classList.add("show");
       setTimeout(() => { hg.classList.add("open"); }, reduce() ? 0 : 1000);
-      setTimeout(() => { st.textContent = ""; showLuckyResult(d, res, true); syncAll(); }, reduce() ? 100 : 1700);
+      setTimeout(() => { st.textContent = ""; showLuckyResult(d, res, true); syncAll(); const gr = $("#gResult"); if (gr) gr.scrollIntoView({ behavior: reduce() ? "auto" : "smooth", block: "nearest" }); }, reduce() ? 100 : 1700);
     }
   }
   function showLuckyResult(d, res, fresh) {
