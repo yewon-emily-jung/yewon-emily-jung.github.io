@@ -1518,3 +1518,8 @@ body { line-height: 1.45; }
 /* Phones: keep "HOLIDAY ADVENT CALENDAR" clear of the reindeer peek */
 @media (max-width: 520px) { .lockup .presents { letter-spacing: .1em; font-size: 10.5px; } }
 @media (max-width: 360px) { .lockup .presents { letter-spacing: .05em; } }
+
+/* How It Works recap near the end, with a join button for explorers */
+.howstrip .how-join { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.howstrip .how-join[hidden] { display: none; }
+.howstrip .how-join-note { margin: 0; font-size: 14px; color: var(--muted); }

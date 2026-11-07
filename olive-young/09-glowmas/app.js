@@ -1096,7 +1096,7 @@
     heroCta.classList.toggle("pulse", act === "open" || act === "lucky");
     $("#dateChipText").textContent = S.day <= 12 ? "Day " + S.day + " of 12 · Dec " + S.day : S.day === 13 ? "Grand Draw open · Dec 13" : "Glowmas has ended · Dec 14";
     const note = $("#heroNote"); const showN = S.day === 12 && S.joined && !S.opened[12]; note.hidden = !showN; note.textContent = "Open Door 12 first to add your tickets.";
-    $("#signInLink").hidden = S.joined;
+    $("#signInLink").hidden = S.joined; $("#howJoinWrap").hidden = S.joined;
     $("#wallNote").textContent = S.day > 12 ? "The calendar is complete. Your opened doors stay open." : (S.joined && S.opened[S.day]) ? (S.day < 12 ? "Today's door is open. Door " + (S.day + 1) + " opens tomorrow." : "Today's door is open. See you at the Grand Draw.") : "Today's door wears a green tag. Tap to open it.";
     const cn = $("#ctaNote"); cn.hidden = S.day > 12; cn.textContent = S.joined ? "A new door opens every day." : "Free to join. A new door opens every day.";
     const hud = $("#hud"); hud.hidden = !S.joined; $("#hudText").textContent = openedCount() + "/12 ornaments · " + plural(ticketBalance(), "ticket", "tickets");
@@ -1109,6 +1109,7 @@
     else if (a === "grand") openGrand();
     else if (a === "lucky") openLucky();
   });
+  $("#howJoin").addEventListener("click", () => { track("cta_click", { label: "Join Glowmas for Free", location: "how_it_works" }); if (!S.joined) showJoin({ from: "how_it_works" }); });
   $("#signInLink").addEventListener("click", () => { joinFrom = "hero_sign_in"; completeJoin({}, { signin: true }); });
   $("#hud").addEventListener("click", () => $("#myGlowmas").scrollIntoView({ behavior: "smooth" }));
   /* ---------- Play Your Luck section ---------- */
@@ -1258,7 +1259,7 @@
     const v = vis("page_view"); const rows = [["Visitors", v], ["Reveal", vis("door_reveal_complete")], ["Join", vis("join_complete")], ["Claim", vis("perk_claim")]];
     return '<table><tr><th>Step</th><th>Unique visitors</th><th></th></tr>' + rows.map((r) => "<tr><td>" + r[0] + "</td><td>" + r[1] + '</td><td style="width:45%"><div class="bar" style="width:' + (v ? Math.round(r[1] / v * 100) : 0) + '%"></div></td></tr>').join("") + "</table><p><b>Join rate</b> " + (v ? (vis("join_complete") / v * 100).toFixed(1) + "%" : "n/a") + " (signups ÷ unique landing visitors)</p>";
   }
-  const SRC_LABEL = { hero: "First screen button (join first)", hero_reveal: "First screen button, then reveal", door_reveal: "Calendar door, then reveal", calendar_door: "Calendar door", my_glowmas: "My Glowmas", gift_sack: "Gift Sack", play_lucky: "Play Your Luck · globe", play_grand: "Play Your Luck · wheel", lucky_sheet: "Snow globe", grand_sheet: "Prize wheel", hero_sign_in: "Sign in link", unknown: "Not recorded" };
+  const SRC_LABEL = { hero: "First screen button (join first)", hero_reveal: "First screen button, then reveal", door_reveal: "Calendar door, then reveal", calendar_door: "Calendar door", my_glowmas: "My Glowmas", gift_sack: "Gift Sack", how_it_works: "How It Works (end of page)", play_lucky: "Play Your Luck · globe", play_grand: "Play Your Luck · wheel", lucky_sheet: "Snow globe", grand_sheet: "Prize wheel", hero_sign_in: "Sign in link", unknown: "Not recorded" };
   // Secondary breakdown, not a test arm. Unique visitors whose signup finished from each source.
   function sourceTable(list) {
     const done = list.filter((e) => e.event === "join_complete"); const by = {};
