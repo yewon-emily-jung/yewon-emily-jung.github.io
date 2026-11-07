@@ -388,10 +388,12 @@
     if (after === 12) { track("ticket_earned", { source: "completion_bonus", amount: 3, total: ticketEarned() }); track("calendar_complete", { used_catchup: S.keyUsed }); }
     persist(); checkP12();
   }
+  let revealFrom = "calendar_door";
   function openToday(src) {
+    revealFrom = src === "hero" ? "hero" : "calendar_door";
     const d = today(); if (!d) return;
     if (doorState(d) !== "today") { showCard(d, S.joined ? "member" : "preview"); return; }
-    if (!S.joined && variant === "B") { showJoin({ thenOpen: true }); return; }
+    if (!S.joined && variant === "B") { showJoin({ thenOpen: true, from: revealFrom }); return; }
     if (S.joined) {
       creditDoor(d, "on");
       animateOpen(d, (b) => { syncAll(); flyTo(b, "orn"); setTimeout(() => flyTo(b, "ticket"), 250); showCard(d, "member"); });
@@ -465,7 +467,7 @@
     track("door_reveal_complete", { day: d, pick_id: "day" + d, mode: mode });
     $('[data-act="glow"]', body).addEventListener("click", (e) => toggleGlow(d, e.currentTarget));
     $('[data-act="product"]', body).addEventListener("click", () => { track("product_link_click", { pick_id: "day" + d }); toast("Product pages are not linked in this prototype."); });
-    const j = $('[data-act="join"]', body); if (j) j.addEventListener("click", () => showJoin({}));
+    const j = $('[data-act="join"]', body); if (j) j.addEventListener("click", () => showJoin({ from: revealFrom === "hero" ? "hero_reveal" : "door_reveal" }));
     const cl = $('[data-act="close"]', body); if (cl) cl.addEventListener("click", closeSheet);
     const lk = $('[data-act="lucky"]', body); if (lk) lk.addEventListener("click", () => openLucky());
   }
@@ -484,8 +486,11 @@
   /* =========================================================
      10. JOIN, PERK READY, MILESTONE, CATCH-UP, EMAIL
      ========================================================= */
+  // Where each signup starts (tracked on join_start and join_complete)
+  let joinFrom = null;
   function showJoin(opts) {
-    track("join_start", { from: opts.thenOpen ? "hero_join_first" : "reveal" });
+    joinFrom = opts.from || (opts.thenOpen ? "hero" : "door_reveal");
+    track("join_start", { from: joinFrom });
     const html = '<form class="simple" id="joinForm" novalidate><p class="eyebrow">FREE TO JOIN</p><h2 class="h2" id="sheetTitle">Join Glowmas for Free</h2><p>Save your progress, claim today\'s Perk and earn draw tickets.</p>' +
       '<div class="field"><label for="jEmail">Email</label><input id="jEmail" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" data-autofocus><p class="help">Sample data only. Nothing is sent.</p><p class="err" id="jErr" hidden></p></div>' +
       '<label class="check" for="jRules"><input id="jRules" type="checkbox"><span>I agree to the Glowmas participation rules (sample). <button type="button" class="text-link" id="jRulesLink">Read the rules</button></span></label>' +
@@ -509,7 +514,7 @@
     S.joined = true; S.participant = S.participant || rid("p_"); S.memberAcct = !!(c.member || c.signin); S.emailOpt = !!c.emailOpt;
     const d = today(); const credit = d && !S.opened[d] && (previewDay === d || S.revealed.indexOf(d) >= 0 || opts.thenOpen);
     if (credit) creditDoor(d, "on");
-    track("join_complete", { door_credited: credit ? d : null });
+    track("join_complete", { door_credited: credit ? d : null, from: joinFrom || "unknown", sign_in: !!c.signin });
     previewDay = null; persist();
     if (opts.thenOpen && d && credit) { closeSheet(); syncAll(); animateOpen(d, (b) => { flyTo(b, "orn"); showReady(d, true); }); return; }
     syncAll();
@@ -614,7 +619,7 @@
     globeStop = gSnow.stop;
     if (state === "played") showLuckyResult(d, S.lucky[d], false);
     $("#gBack").addEventListener("click", closeSheet);
-    const j = $("#gJoin"); if (j) j.addEventListener("click", () => showJoin({}));
+    const j = $("#gJoin"); if (j) j.addEventListener("click", () => showJoin({ from: "lucky_sheet" }));
     const play = $("#gPlay");
     if (play) { play.addEventListener("click", () => ageGate(() => { if (!sheet.querySelector("#globe")) openLucky(); runLucky(d, gSnow); })); armShake(play); }
   }
@@ -793,7 +798,7 @@
     openSheet(html, "full dark"); bindPool(body);
     renderLegend("A"); renderResultsList();
     $("#wBack").addEventListener("click", closeSheet);
-    const j = $("#wJoin"); if (j) j.addEventListener("click", () => showJoin({}));
+    const j = $("#wJoin"); if (j) j.addEventListener("click", () => showJoin({ from: "grand_sheet" }));
     const sp = $("#wSpin"); if (sp) sp.addEventListener("click", () => ageGate(() => { if (!$("#wheel")) openGrand(); spinOnce(); }));
     const al = $("#wAll"); if (al) al.addEventListener("click", () => ageGate(() => { if (!$("#wheel")) openGrand(); confirmAll(); }));
     const wr = $("#wWrap"); if (wr) wr.addEventListener("click", showWrap);
@@ -1049,7 +1054,7 @@
     $$("[data-copy]", box).forEach((b) => b.addEventListener("click", () => { const code = b.dataset.copy, done = () => toast("Copied " + code + ". Demo code only."); try { navigator.clipboard.writeText(code).then(done, done); } catch (e) { done(); } }));
     $$("[data-g]", box).forEach((b) => b.addEventListener("click", () => showCard(+b.dataset.g, "member")));
     const gb = $("#wGrand", box); if (gb) gb.addEventListener("click", openGrand);
-    const wj = $("#wtJoin", box); if (wj) wj.addEventListener("click", () => showJoin({}));
+    const wj = $("#wtJoin", box); if (wj) wj.addEventListener("click", () => showJoin({ from: "my_glowmas" }));
     renderStatus();
   }
   function renderStatus() {
@@ -1098,13 +1103,13 @@
   }
   heroCta.addEventListener("click", () => {
     const a = heroCta.dataset.act; track("cta_click", { label: $(".cta-label", heroCta).textContent, location: "hero" });
-    if (a === "open") { if (!S.joined && variant === "B" && today() && !S.opened[today()]) showJoin({ thenOpen: true }); else openToday(); }
-    else if (a === "join") showJoin({});
+    if (a === "open") { if (!S.joined && variant === "B" && today() && !S.opened[today()]) showJoin({ thenOpen: true, from: "hero" }); else openToday("hero"); }
+    else if (a === "join") showJoin({ from: "hero" });
     else if (a === "tree") $("#myGlowmas").scrollIntoView({ behavior: "smooth" });
     else if (a === "grand") openGrand();
     else if (a === "lucky") openLucky();
   });
-  $("#signInLink").addEventListener("click", () => completeJoin({}, { signin: true }));
+  $("#signInLink").addEventListener("click", () => { joinFrom = "hero_sign_in"; completeJoin({}, { signin: true }); });
   $("#hud").addEventListener("click", () => $("#myGlowmas").scrollIntoView({ behavior: "smooth" }));
   /* ---------- Play Your Luck section ---------- */
   let pSnow = null;
@@ -1116,8 +1121,8 @@
     const shake = () => { if (reduce() || g.classList.contains("wiggle")) return; g.classList.add("wiggle"); pSnow.storm(true); clearTimeout(wt); wt = setTimeout(() => { g.classList.remove("wiggle"); pSnow.storm(false); }, 1000); };
     $("#pGlobeStage").addEventListener("pointerenter", shake);
     $("#pGlobeStage").addEventListener("focus", shake);
-    const luckyGo = () => { track("cta_click", { label: $("#pGlobeCta").textContent, location: "play_lucky" }); if (!S.joined) showJoin({}); else openLucky(); };
-    const grandGo = () => { track("cta_click", { label: $("#pWheelCta").textContent, location: "play_grand" }); if (!S.joined) showJoin({}); else openGrand(); };
+    const luckyGo = () => { track("cta_click", { label: $("#pGlobeCta").textContent, location: "play_lucky" }); if (!S.joined) showJoin({ from: "play_lucky" }); else openLucky(); };
+    const grandGo = () => { track("cta_click", { label: $("#pWheelCta").textContent, location: "play_grand" }); if (!S.joined) showJoin({ from: "play_grand" }); else openGrand(); };
     $("#pGlobeStage").addEventListener("click", () => { shake(); setTimeout(luckyGo, reduce() ? 0 : 350); });
     $("#pGlobeCta").addEventListener("click", luckyGo);
     $("#pWheelStage").addEventListener("click", grandGo);
@@ -1253,14 +1258,22 @@
     const v = vis("page_view"); const rows = [["Visitors", v], ["Reveal", vis("door_reveal_complete")], ["Join", vis("join_complete")], ["Claim", vis("perk_claim")]];
     return '<table><tr><th>Step</th><th>Unique visitors</th><th></th></tr>' + rows.map((r) => "<tr><td>" + r[0] + "</td><td>" + r[1] + '</td><td style="width:45%"><div class="bar" style="width:' + (v ? Math.round(r[1] / v * 100) : 0) + '%"></div></td></tr>').join("") + "</table><p><b>Join rate</b> " + (v ? (vis("join_complete") / v * 100).toFixed(1) + "%" : "n/a") + " (signups ÷ unique landing visitors)</p>";
   }
+  const SRC_LABEL = { hero: "First screen button (join first)", hero_reveal: "First screen button, then reveal", door_reveal: "Calendar door, then reveal", calendar_door: "Calendar door", my_glowmas: "My Glowmas", gift_sack: "Gift Sack", play_lucky: "Play Your Luck · globe", play_grand: "Play Your Luck · wheel", lucky_sheet: "Snow globe", grand_sheet: "Prize wheel", hero_sign_in: "Sign in link", unknown: "Not recorded" };
+  // Secondary breakdown, not a test arm. Unique visitors whose signup finished from each source.
+  function sourceTable(list) {
+    const done = list.filter((e) => e.event === "join_complete"); const by = {};
+    done.forEach((e) => { const k = e.from || "unknown"; (by[k] = by[k] || { A: new Set(), B: new Set() })[e.cta_variant === "B" ? "B" : "A"].add(e.visitor_id); });
+    const keys = Object.keys(by); if (!keys.length) return '<h4>Signups by source</h4><p class="dr-note">No signups yet.</p>';
+    return '<h4>Signups by source</h4><p class="dr-note">Where each signup started. Counts only, not a test result.</p><table><tr><th>Source</th><th>A</th><th>B</th></tr>' + keys.map((k) => "<tr><td>" + (SRC_LABEL[k] || k) + "</td><td>" + by[k].A.size + "</td><td>" + by[k].B.size + "</td></tr>").join("") + "</table>";
+  }
   function renderDrawer() {
     const b = $("#drBody"); let h = "";
     if (drTab === "list") {
       const list = (incSim ? EVENTS : organic()).slice(-120).reverse();
       h = '<label class="demo-check"><input type="checkbox" id="incSim"' + (incSim ? " checked" : "") + "> Include simulated</label>" + (list.map((e) => '<div class="ev"><b>' + e.event + '</b><span class="tg' + (e.data_mode === "simulated" ? " sim" : "") + '">' + e.data_mode + '</span><span class="tg">' + e.assignment_source + " · " + e.cta_variant + "</span><pre>" + JSON.stringify(Object.fromEntries(Object.entries(e).filter(([k]) => ["event", "event_id", "timestamp", "session_id", "visitor_id", "data_mode", "assignment_source", "cta_variant", "utm_source"].indexOf(k) < 0))) + "</pre></div>").join("") || '<p class="dr-note">No events yet.</p>');
-    } else if (drTab === "funnel") h = '<p class="dr-note">Organic events only. Tester data, not campaign results.</p>' + funnel(organic());
-    else if (drTab === "ab") h = '<p class="dr-note">Randomized comparison. Organic sessions with assignment_source = random only.</p><h4>Version A · Value First</h4>' + funnel(organic("random").filter((e) => e.cta_variant === "A")) + "<h4>Version B · Join First</h4>" + funnel(organic("random").filter((e) => e.cta_variant === "B"));
-    else if (drTab === "mt") h = '<p class="dr-note"><b>Not a randomized experiment.</b> Moderated class test sessions (?mt=A or ?mt=B) only.</p><h4>Moderated A</h4>' + funnel(organic("moderated_test").filter((e) => e.cta_variant === "A")) + "<h4>Moderated B</h4>" + funnel(organic("moderated_test").filter((e) => e.cta_variant === "B"));
+    } else if (drTab === "funnel") h = '<p class="dr-note">Organic events only. Tester data, not campaign results.</p>' + funnel(organic()) + sourceTable(organic());
+    else if (drTab === "ab") h = '<p class="dr-note">Randomized comparison. Organic sessions with assignment_source = random only.</p><h4>Version A · Value First</h4>' + funnel(organic("random").filter((e) => e.cta_variant === "A")) + "<h4>Version B · Join First</h4>" + funnel(organic("random").filter((e) => e.cta_variant === "B")) + sourceTable(organic("random"));
+    else if (drTab === "mt") h = '<p class="dr-note"><b>Not a randomized experiment.</b> Moderated class test sessions (?mt=A or ?mt=B) only.</p><h4>Moderated A</h4>' + funnel(organic("moderated_test").filter((e) => e.cta_variant === "A")) + "<h4>Moderated B</h4>" + funnel(organic("moderated_test").filter((e) => e.cta_variant === "B")) + sourceTable(organic("moderated_test"));
     else {
       const pack = { exported_at: new Date().toISOString(), note: "Glowmas student prototype. Tester data only.", all: EVENTS, random_A: organic("random").filter((e) => e.cta_variant === "A"), random_B: organic("random").filter((e) => e.cta_variant === "B"), moderated_A: organic("moderated_test").filter((e) => e.cta_variant === "A"), moderated_B: organic("moderated_test").filter((e) => e.cta_variant === "B") };
       h = '<p class="dr-note">All events plus four organic buckets. Download works on the hosted site. Copy works everywhere.</p><div class="row"><button type="button" id="exCopy">Copy JSON</button><button type="button" id="exDl">Download JSON</button><button type="button" id="exClear">Clear events</button></div><textarea id="exText" readonly aria-label="Exported events JSON">' + JSON.stringify(pack, null, 1).replace(/</g, "&lt;") + '</textarea><p class="dr-note">Real launch only, never fired here: perk_redeem, order_complete, email_open, email_click, unsubscribe.</p>';
@@ -1334,7 +1347,7 @@
   }
   function openSack() {
     track("cta_click", { label: "Open My Gift Sack", location: "gift_sack" });
-    if (!S.joined) { showJoin({}); return; }
+    if (!S.joined) { showJoin({ from: "gift_sack" }); return; }
     const items = S.glowList.slice().sort((a, b) => a - b);
     const list = items.length ? '<ul class="shelf-items">' + items.map((d) => { const p = pick(d), on = S.shopList.indexOf(d) >= 0; return '<li class="gitem"><span class="g-box"><img src="' + IMG + p.img + '" alt="' + p.brand + " " + p.name + '"></span><span class="g-txt"><b>' + p.brand + "</b><span>" + p.name + '</span><span class="g-price">' + p.price + '</span></span><span class="g-act"><button class="btn-sm' + (on ? " dark" : "") + '" type="button" data-shop="' + d + '" aria-pressed="' + on + '">' + (on ? "On My Shopping List" : "Add to Shopping List") + '</button><button class="text-link" type="button" data-rm="' + d + '">Remove</button></span></li>'; }).join("") + "</ul>" : '<p class="empty">Your sack is empty. Tap the heart on any Pick to drop it in.</p>';
     const shop = S.shopList.slice().sort((a, b) => a - b), total = shop.reduce((t, d) => t + priceNum(d), 0);

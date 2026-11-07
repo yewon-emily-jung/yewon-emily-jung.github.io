@@ -1515,3 +1515,6 @@ body { line-height: 1.45; }
    Desktop keeps its scroll parallax. */
 @media (max-width: 899px) { .scene .layer { will-change: auto; transform: none !important; transition: none; } }
 @media (prefers-reduced-motion: reduce) { .scene .layer { will-change: auto; } }
+/* Phones: keep "HOLIDAY ADVENT CALENDAR" clear of the reindeer peek */
+@media (max-width: 520px) { .lockup .presents { letter-spacing: .1em; font-size: 10.5px; } }
+@media (max-width: 360px) { .lockup .presents { letter-spacing: .05em; } }
